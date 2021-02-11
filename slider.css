@@ -11,6 +11,7 @@
     opacity: 0;
     width: 0;
     height: 0;
+    
   }
   
   /* The slider */
@@ -24,6 +25,7 @@
     background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
+    text-align: center;
   }
   
   .slider:before {
@@ -36,6 +38,7 @@
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
+    align-items: center;
   }
   
   input:checked + .slider {
@@ -61,20 +64,21 @@
     border-radius: 50%;
   }
 
-  html {
-    padding: 24px;
-}
+/* html {
+  padding: 24px;
+} */
 
 #hover {
-    background: #eeeeee;
+    background: white;
     padding: 6px;
     display: block;
     position: relative;
+    width: fit-content;
+    text-align: center;
 }
 
 #hover:hover {
-    background: #dddddd;
-    
+    background: #eeeeee;
 }
 
 
@@ -91,6 +95,7 @@
     overflow: hidden;
     -webkit-transition: all 500ms;
     transition: all 500ms;
+    text-align: center;
 }
 
 
@@ -100,3 +105,6 @@
     opacity: 1;
     border: 1px solid #eeeeee;
 }
+
+
+

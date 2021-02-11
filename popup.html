@@ -6,17 +6,28 @@
   <title>Search Savior Chrome Extension</title>
 </head>
 
-<div id="hover" href="#">
-    <a href="#">SearchSavior</a>
+<div id="hover" href="#" class="vertical-center">
+    <a href="projectpage.html" target="_blank"><img src="extension-icon.png" alt="SearchSavior button" width="30" height="30"></a>
     <div id="popup">
-        <p>on/off</p>
-        <label id="toggle" class="switch">
-        <input type="checkbox">
+      <p style="font-family:'Helvetica'" style="font-weight: bolder;">SearchSavior</p>
+ 
+      <label style="font-size: smaller;">
+      <label id="toggle" class="switch" style="font-size: smaller;">
+        <input type="checkbox" id="checkid">
         <span class="slider round"></span>
         <br>
         <br>
-        <a href="projectpage.html" target="_blank">Open Projects</a>
-    </label> </div> 
+      </label> 
+      <br>
+      on/off
+    </label>
+    
+    <br>
+    <br>
+    <label style="font-family:'Helvetica'">
+      <a href="projectpage.html" target="_blank" style="color: black;">Open Projects</a>
+    </label>
+    </div> 
 
     
     <body>
@@ -24,7 +35,14 @@
         document.getElementById("popup").addEventListener("click", function() {
             document.getElementById("toggle").innerHTML;
           });
-            
+          
+          /* need to add action listener to start tracking when toggle turned on */
+          document.getElementById("checkid").onclick =  function() {MyFunction()};
+          
+          function MyFunction() {
+            alert("Started tracking!");
+            // start tracking here!
+          }
   
         </script>
     
