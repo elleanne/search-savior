@@ -6,11 +6,8 @@
   <title>Search Savior Chrome Extension</title>
 </head>
 
-<!-- this div is displayed first as just the icon. Hover over it and a popout will open-->
-  <div id="hover" href="#" class="vertical-center">
-    <a href="projectpage.html" target="_blank"><img src="extension-icon.png" alt="SearchSavior button" width="30" height="30"></a>
-    <!-- the inner div contains the toggle on/off and a link to a new projects page-->
-    <div id="popup">
+<!-- this div is displayed in the popup. -->
+  <div id="hover" href="#" class="vertical-center">   
       <p style="font-family:'Helvetica'" style="font-weight: bolder;">SearchSavior</p>
       <label style="font-size: smaller;">
       <label id="toggle" class="switch" style="font-size: smaller;">
@@ -27,39 +24,6 @@
     <label style="font-family:'Helvetica'">
       <a href="projectpage.html" target="_blank" style="color: black;">Projects</a>
     </label>
-  </div> 
-
-    
-    <body>
-      <script type="text/javascript" src="bst.js"></script>
-        <script type="text/javascript">
-        var checked = false;
-        document.getElementById("popup").addEventListener("click", function() {
-            document.getElementById("toggle").innerHTML;
-          });
-          
-          /* need to add action listener to start tracking when toggle turned on */
-        document.getElementById("checkboxid").onclick =  function() {MyFunction()};
-          function MyFunction() { // not sure if this is the best way to check for on/off status
-            if(checked === true) {
-              checked = false;
-            } else {
-              checked = true;
-              alert("Started tracking!");
-              // start tracking here!
-            }
-          }
-
-         
-        var bst = new BST();
-        bst.insert(10,"www.happy.com");
-        console.log(bst.getRoot());
-
-          
-          
-        </script>
-    
-    </body>
 
 </div>
 

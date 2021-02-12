@@ -1,1 +1,20 @@
-//  metadata like name, description, what icon is used in the app, icon size, the HTML page being used, permissions, browser action, version, etc.
+{
+    "name": "searchSavior",
+    "description": "automated search saver",
+    "version": "0.1.0",
+    "manifest_version": 2,
+    "icons":{
+        "19": "./extension-icon.png"
+    },
+    "background": {
+        "scripts": ["./background.js"]
+    },
+    "options_page": "./projectpage.html",
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "tabs",
+        "<all_urls>"
+    ]
+}
