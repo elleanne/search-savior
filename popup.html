@@ -6,14 +6,15 @@
   <title>Search Savior Chrome Extension</title>
 </head>
 
-<div id="hover" href="#" class="vertical-center">
+<!-- this div is displayed first as just the icon. Hover over it and a popout will open-->
+  <div id="hover" href="#" class="vertical-center">
     <a href="projectpage.html" target="_blank"><img src="extension-icon.png" alt="SearchSavior button" width="30" height="30"></a>
+    <!-- the inner div contains the toggle on/off and a link to a new projects page-->
     <div id="popup">
       <p style="font-family:'Helvetica'" style="font-weight: bolder;">SearchSavior</p>
- 
       <label style="font-size: smaller;">
       <label id="toggle" class="switch" style="font-size: smaller;">
-        <input type="checkbox" id="checkid">
+        <input type="checkbox" id="checkboxid">
         <span class="slider round"></span>
         <br>
         <br>
@@ -21,29 +22,41 @@
       <br>
       on/off
     </label>
-    
     <br>
     <br>
     <label style="font-family:'Helvetica'">
-      <a href="projectpage.html" target="_blank" style="color: black;">Open Projects</a>
+      <a href="projectpage.html" target="_blank" style="color: black;">Projects</a>
     </label>
-    </div> 
+  </div> 
 
     
     <body>
-        <script>
+      <script type="text/javascript" src="bst.js"></script>
+        <script type="text/javascript">
+        var checked = false;
         document.getElementById("popup").addEventListener("click", function() {
             document.getElementById("toggle").innerHTML;
           });
           
           /* need to add action listener to start tracking when toggle turned on */
-          document.getElementById("checkid").onclick =  function() {MyFunction()};
-          
-          function MyFunction() {
-            alert("Started tracking!");
-            // start tracking here!
+        document.getElementById("checkboxid").onclick =  function() {MyFunction()};
+          function MyFunction() { // not sure if this is the best way to check for on/off status
+            if(checked === true) {
+              checked = false;
+            } else {
+              checked = true;
+              alert("Started tracking!");
+              // start tracking here!
+            }
           }
-  
+
+         
+        var bst = new BST();
+        bst.insert(10,"www.happy.com");
+        console.log(bst.getRoot());
+
+          
+          
         </script>
     
     </body>
