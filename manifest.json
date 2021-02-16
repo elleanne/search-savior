@@ -8,7 +8,6 @@
     },
     "background": {
         "scripts": ["./background.js"]
-        
     },
     "options_page": "./projectpage.html",
     "browser_action": {

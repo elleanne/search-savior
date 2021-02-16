@@ -1,3 +1,4 @@
+
 var tFBool = false;
 
 document.addEventListener("DOMContentLoaded", function () {
