@@ -1,27 +1,37 @@
 var tFBool = false;
-var once = 0;
-function turnOn() {
-  console.log("on");
-  chrome.tabs.onActivated.addListener((tab) => {
-    chrome.tabs.get(tab.tabId, (current_tab_info) => {
-      console.log(current_tab_info.url);
-    });
-  });
-}
-
-function doAmazingThings() {
-  //alert("YOU AM AMAZING!");
-  if (!tFBool) {
-    tFBool = true;
-  } else {
-    tFBool = false;
-  }
-  console.log(tFBool);
-}
 
 document.addEventListener("DOMContentLoaded", function () {
   var on = document.getElementById("checkboxid");
-  if (on) {on.addEventListener("click", doAmazingThings);}
+  if (on) {
+    on.addEventListener("click", function () {
+      var x = document.getElementById("onoff");
+      if (!tFBool) {
+        tFBool = true;
+        x.innerHTML = "on";
+        z = "on";
+      } else {
+        tFBool = false;
 
+        x.innerHTML = "off";
+        z = "off";
+      }
+      console.log(tFBool);
+    });
+  }
 });
 
+// need to fiugure out how to save the previos state
+chrome.tabs.onActivated.addListener((tab) => {
+  chrome.tabs.get(tab.tabId, (current_tab_info) => {
+    var z;
+    document.addEventListener("DOMContentLoaded", function () {
+      z = document.getElementById("onoff");
+    });
+
+    if (z) {
+      if (z.innerHTML === "on") {
+        console.log(current_tab_info.url);
+      }
+    }
+  });
+});
