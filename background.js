@@ -1,5 +1,8 @@
+const chrome = require('sinon-chrome');
+window.chrome = chrome;
 
 var tFBool = false;
+var treeArray = [];
 
 document.addEventListener("DOMContentLoaded", function () {
   var on = document.getElementById("checkboxid");
@@ -10,13 +13,19 @@ document.addEventListener("DOMContentLoaded", function () {
         tFBool = true;
         x.innerHTML = "on";
         z = "on";
+        
       } else {
         tFBool = false;
 
         x.innerHTML = "off";
         z = "off";
+        //console.log(st.data);
       }
       console.log(tFBool);
+      chrome.storage.local.set({'z': z}, function() {
+        // Notify that we saved.
+          console.log(z);
+      });
     });
   }
 });
@@ -32,6 +41,8 @@ chrome.tabs.onActivated.addListener((tab) => {
     if (z) {
       if (z.innerHTML === "on") {
         console.log(current_tab_info.url);
+        var newdata = {id: tab.tabId, parentId: 1, url: current_tab_info.url};
+        //st.data.push(newdata);
       }
     }
   });

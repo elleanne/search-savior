@@ -7,7 +7,10 @@
         "19": "./extension-icon.png"
     },
     "background": {
-        "scripts": ["./background.js"]
+        "scripts": [
+            "./bst.js",
+            "./background.js"
+        ]
     },
     "options_page": "./projectpage.html",
     "browser_action": {
