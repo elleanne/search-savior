@@ -1,3 +1,6 @@
+const chrome = require('sinon-chrome'); // for testing only
+window.chrome = chrome; // for testing only
+
 var tFBool = true;
 var treeArray = [];
 var curr_parentId = null;
@@ -93,4 +96,3 @@ chrome.tabs.onActivated.addListener((tab) => {
     });
   });
 });
-
