@@ -1,4 +1,5 @@
 
+
 var tree = function() {
 // var data = [
 //   {}
@@ -48,6 +49,62 @@ data.forEach((i) => {
 
 }
 var st = new tree;
+
+
+// var data = [
+//   { id: 56, parentId: 62, url: "www.hello.com" },
+//   { id: 81, parentId: 80, url: "www.hello1.com" },
+//   { id: 74, parentId: null, url: "www.hello2.com" },
+//   { id: 76, parentId: 80, url: "www.hello3.com" },
+//   { id: 63, parentId: 62, url: "www.hello.com" },
+//   { id: 80, parentId: 86, url: "www.hello.com" },
+//   { id: 87, parentId: 86, url: "www.hello.com" },
+//   { id: 62, parentId: 74, url: "www.hello.com" },
+//   { id: 86, parentId: 74, url: "www.hello.com" },
+// ];
+// class treeM {
+
+// tree1() {
+// // var data = [
+// //   {}
+// // ];
+
+
+// var idMapping = data.reduce((acc, el, i) => {
+//   acc[el.id] = i;
+//   return acc;
+// }, {});
+
+// var urlMapping = data.reduce((urlM, el) => {
+//     urlM[el.id] = el.url;
+//     return urlM;
+//   }, {});
+
+// let root;
+
+// data.forEach((el) => {
+//   // Handle the root element
+//   if (el.parentId === null) {
+//     root = el;
+//     return;
+//   }
+//   // Use our mapping to locate the parent element in our data array
+//   var parentEl = data[idMapping[el.parentId]];
+//   // Add our current el to its parent's `children` array
+//   parentEl.children = [...(parentEl.children || []), el, el.url];
+// });
+
+
+// data.forEach((i) => { 
+//     console.log(i);
+//     console.log(idMapping[i.id] + " " + i.parentId);
+//     console.log(urlMapping[i.id] + " "+ urlMapping[i.parentId]);
+// });
+
+// }
+// }
+// var st = new treeM;
+// console.log(st.urlMapping);
 
 
 // /*
