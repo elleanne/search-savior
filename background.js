@@ -1,6 +1,6 @@
 const chrome = require('sinon-chrome'); // for testing only
 window.chrome = chrome; // for testing only
-
+exports.chrome = chrome;
 var tFBool = true;
 var treeArray = [];
 var curr_parentId = null;
@@ -13,7 +13,24 @@ class TreeNode {
     this.descendants = [];
   }
 }
+
+exports.makeNode = (urlName) => {
+  var node1 = new TreeNode();
+  node1.value = urlName;
+  return node1;
+}
+
+exports.addDesc = (node2, desc) => {
+  if(node2.descendants !== undefined) {
+    var tempDesc = node2.descendants;
+    tempDesc.push(desc);
+    node2.descendants = tempDesc;
+  } else node2.descendants.push(desc);
+  return node2;
+}
+
 var node = new TreeNode();
+
 document.addEventListener("DOMContentLoaded", function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
   chrome.storage.local.get("enabled", function (result) {
