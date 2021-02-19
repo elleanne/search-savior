@@ -13,6 +13,7 @@ class TreeNode {
     this.descendants = [];
   }
 }
+
 var node = new TreeNode();
 document.addEventListener("DOMContentLoaded", function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
@@ -38,10 +39,13 @@ chrome.tabs.onActivated.addListener((tab) => {
   chrome.tabs.get(tab.tabId, (current_tab_info) => {
     var checkbox = document.querySelector('input[type="checkbox"]');
     chrome.storage.local.get("enabled", function (result) {
-      if (!result.enabled) {
+      if (!result.enabled && allNodes !== null) {
         saveProject(checkbox, allNodes, "tree1");
         getProject("tree1"); //****  need to make this work for a user-input project name ***
+
+        chrome.runtime.sendMessage({ greeting: "saved tree" });
       }
+
       //console.log("initial status: " + result.enabled);
       if (result.enabled) {
         //console.log(current_tab_info.url);
@@ -56,6 +60,7 @@ chrome.tabs.onActivated.addListener((tab) => {
           if (allID.includes(tab.tabId)) {
             for (i in allNodes) {
               if (allNodes[i].value === current_tab_info.url) {
+                // TODO: test that descendants are added correctly
                 node = allNodes[i];
                 break;
               }
@@ -102,7 +107,7 @@ chrome.tabs.onActivated.addListener((tab) => {
 
 function saveProject(onOff, allNodes) {
   if (!onOff) {
-    chrome.storage.sync.set({ tree: allNodes });
+    chrome.storage.sync.set({ tree: allNodes }); // TODO: need to make sync.get take an input, not hardcode tree in
     var tFBool = true; // reset all values
     var treeArray = [];
     var curr_parentId = null;
@@ -114,6 +119,7 @@ function saveProject(onOff, allNodes) {
 
 function getProject() {
   chrome.storage.sync.get("tree", function (data) {
+    // TODO: need to make sync.get take an input, not hardcode tree in
     //console.log(data);
     var mySet = new Array(data);
     console.log(mySet);
@@ -121,13 +127,13 @@ function getProject() {
   });
 }
 
-var makeNode = (urlName) => {
+var makeNode = (urlName) => { // not used
   var node1 = new TreeNode();
   node1.value = urlName;
   return node1;
 };
 
-var addDesc = (node2, desc) => {
+var addDesc = (node2, desc) => { // not used
   if (node2.descendants !== undefined) {
     var tempDesc = node2.descendants;
     tempDesc.push(desc);
