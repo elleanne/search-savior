@@ -8,11 +8,11 @@
     },
     "background": {
         "scripts": [
-            "./bst.js",
+        
             "./background.js"
         ]
     },
-    "options_page": "./projectpage.html",
+   
     "browser_action": {
         "default_popup": "popup.html"
     },
