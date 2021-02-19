@@ -7,7 +7,7 @@
 */
 
 const { TestScheduler } = require('jest'); // need to dowload to test: npm install --save-dev jest
-const { treeArray } = require('./background');
+const { treeArray, makeNode, addDesc, chrome } = require('./background');
 const puppeteer = require('puppeteer'); // need to dowload to test: npm install --save-dev puppeteer
 
 test('test node', () =>{ // just a test that should always pass to test that jest is working
@@ -19,3 +19,23 @@ test('test that treeArray is made', () => {
      const array = treeArray;
     expect(array).toBeUndefined();
 });
+
+test('test TreeNode functions', () => {
+    var node = makeNode('www.hello.com');
+    node = addDesc(node, 'www.bye.com');
+    expect(node.value).toBe('www.hello.com');
+    expect(node.descendants).toStrictEqual(["www.bye.com"]);
+    node  = addDesc(node, 'www.notyet.com');
+    expect([ 'www.bye.com', 'www.notyet.com' ]).toEqual(expect.arrayContaining(node.descendants));
+});
+
+test('test toggle on/off', async () => {
+    const browser = await puppeteer.launch({
+        headless: false,
+    });
+    const page = await browser.newPage();
+    await page.goto('file:///Users/mac/IdeaProjects/search-savior/popup.html');
+    
+    await page.click('label#toggle');
+    await page.click('label#projectspage');
+}, 10000);
