@@ -1,11 +1,41 @@
-// const chrome = require('sinon-chrome'); // for testing only
-// window.chrome = chrome; // for testing only
-
+// The follow 3 lines are for testing purposes only. 
+/*
+const chrome = require('sinon-chrome'); 
+window.chrome = chrome; 
+exports.chrome = chrome;
+*/
 var tFBool = true;
 var treeArray = [];
 var curr_parentId = null;
 var allID = [];
 var allNodes = [];
+
+// The following is for testing purpose only.
+/*
+class TreeNode {
+  constructor(value) {
+    this.value = value;
+    this.descendants = [];
+  }
+}
+
+exports.makeNode = (urlName) => {
+  var node1 = new TreeNode();
+  node1.value = urlName;
+  return node1;
+}
+
+exports.addDesc = (node2, desc) => {
+  if(node2.descendants !== undefined) {
+    var tempDesc = node2.descendants;
+    tempDesc.push(desc);
+    node2.descendants = tempDesc;
+  } else node2.descendants.push(desc);
+  return node2;
+}
+
+var node = new TreeNode();
+*/
 
 class TreeNode {
   constructor(value) {
@@ -18,7 +48,10 @@ var node = new TreeNode();
 document.addEventListener("DOMContentLoaded", function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
   chrome.storage.local.get("enabled", function (result) {
-    // console.log("initial status: " + result.enabled);
+    
+//     Testing purpose only 
+//     console.log("initial status: " + result.enabled);
+    
     if (result.enabled !== null && checkbox !== null) {
       checkbox.checked = result.enabled;
     }
@@ -26,7 +59,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (checkbox) {
     checkbox.addEventListener("click", function () {
-      // console.log("current status: " + checkbox.checked);
+// The following is for testing purpose only. 
+      /*
+      console.log("current status: " + checkbox.checked);
+      chrome.storage.local.set({ enabled: checkbox.checked }, function () {
+        console.log("confirmed"); 
+        */
       chrome.storage.local.set({ enabled: checkbox.checked }, function () {
         //console.log("confirmed");
       });
