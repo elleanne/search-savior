@@ -1012,20 +1012,6 @@ button::-moz-focus-inner, input::-moz-focus-inner {
  *
  * ------------------------------------------------------------------- */
 
-/* ------------------------------------------------------------------- 
- * ## additional typo styles 
- * ------------------------------------------------------------------- */
-.drop-cap:first-letter {
-    float: left;
-    font-family: "Open Sans", sans-serif;
-    font-weight: 700;
-    font-size: 6em;
-    line-height: 1;
-    padding: 0 0.125em 0 0;
-    text-transform: uppercase;
-    background: transparent;
-    color: #000000;
-}
 
 /* line definition style 
  * ----------------------------------------------- */
