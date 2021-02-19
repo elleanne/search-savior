@@ -17,7 +17,7 @@ var node = new TreeNode();
 document.addEventListener("DOMContentLoaded", function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
   chrome.storage.local.get("enabled", function (result) {
-    console.log("initial status: " + result.enabled);
+    // console.log("initial status: " + result.enabled);
     if (result.enabled !== null && checkbox !== null) {
       checkbox.checked = result.enabled;
     }
@@ -25,9 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (checkbox) {
     checkbox.addEventListener("click", function () {
-      console.log("current status: " + checkbox.checked);
+      // console.log("current status: " + checkbox.checked);
       chrome.storage.local.set({ enabled: checkbox.checked }, function () {
-        console.log("confirmed");
+        //console.log("confirmed");
       });
     });
   }
@@ -36,22 +36,22 @@ document.addEventListener("DOMContentLoaded", function () {
 // need to fiugure out how to save the previos state
 chrome.tabs.onActivated.addListener((tab) => {
   chrome.tabs.get(tab.tabId, (current_tab_info) => {
-    chrome.storage.local.get({ enabled: !checkbox }, function () {
-      saveProject(checkbox, allNodes);
-      getProject("tree1"); //****  need to make this work for a user-input project name ***
-    });
     var checkbox = document.querySelector('input[type="checkbox"]');
     chrome.storage.local.get("enabled", function (result) {
-      console.log("initial status: " + result.enabled);
+      if (!result.enabled) {
+        saveProject(checkbox, allNodes, "tree1");
+        getProject("tree1"); //****  need to make this work for a user-input project name ***
+      }
+      //console.log("initial status: " + result.enabled);
       if (result.enabled) {
-        console.log(current_tab_info.url);
+        //console.log(current_tab_info.url);
         var newdata = {
           id: tab.tabId,
           parentId: curr_parentId,
           url: current_tab_info.url,
         };
 
-        console.log(allID + " array");
+        //console.log(allID + " array");
         if (allID !== null) {
           if (allID.includes(tab.tabId)) {
             for (i in allNodes) {
@@ -61,7 +61,7 @@ chrome.tabs.onActivated.addListener((tab) => {
               }
             }
             //console.log(node);
-            console.log("already there");
+            //console.log("already there");
             curr_parentId = tab.tabId;
             var tempchild = [];
             for (i in treeArray) {
@@ -70,40 +70,39 @@ chrome.tabs.onActivated.addListener((tab) => {
                 tempchild.push(treeArray[i].url);
               }
             }
-            console.log("tempchild" + tempchild);
+            //console.log("tempchild" + tempchild);
             node.descendants.push(tempchild);
-            console.log(node);
+            //console.log(node);
           } else {
             node = new TreeNode(current_tab_info.url);
             curr_parentId = tab.tabId;
-            console.log(newdata);
+            //console.log(newdata);
             treeArray.push(newdata);
-            console.log(treeArray);
+            //console.log(treeArray);
             allID.push(tab.tabId);
             allNodes.push(node);
 
-            console.log(node);
+            //console.log(node);
           }
         } else {
           node = new TreeNode(current_tab_info.url);
           curr_parentId = tab.tabId;
-          console.log(newdata);
+          //console.log(newdata);
           treeArray.push(newdata);
-          console.log(treeArray);
+          // console.log(treeArray);
           allID.push(tab.tabId);
           allNodes.push(node);
           //node.descendants.push(newdata.url);
-          console.log(node);
+          // console.log(node);
         }
       }
     });
   });
 });
 
-
 function saveProject(onOff, allNodes) {
   if (!onOff) {
-    chrome.storage.local.set({ tree1: allNodes });
+    chrome.storage.sync.set({ tree: allNodes });
     var tFBool = true; // reset all values
     var treeArray = [];
     var curr_parentId = null;
@@ -113,11 +112,12 @@ function saveProject(onOff, allNodes) {
   return;
 }
 
-function getProject(project) {
-  chrome.storage.local.get(project, function (data) {
-    console.log(data);
+function getProject() {
+  chrome.storage.sync.get("tree", function (data) {
+    //console.log(data);
     var mySet = new Array(data);
     console.log(mySet);
+    return mySet;
   });
 }
 
