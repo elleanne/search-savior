@@ -60,7 +60,7 @@
 
                 <ul class="s-header__nav">
                     <li class="current"><a href="index.html">Projects</a></li>
-                    <li class="has-children"><a href="#0">Team Members</a>
+                    <li class="has-children"><a href="#0">Developers</a>
                         <ul>
                             <li><a href="https://www.linkedin.com/in/elizabeth-crouther-66926389/"
                                     target="_blank">Elizabeth
@@ -96,9 +96,9 @@
                 <article class="entry">
 
                     <header class="entry__header">
-                        <INPUT type="button" value="Add Row" onclick="addRow('dataTable')" />
-
-                        <INPUT type="button" value="Delete Row" onclick="deleteRow('dataTable')" />
+                        <button id="addR">Add Row</button>
+                        <button id="deleteR">Delete Row</button>
+                        
 
                         <TABLE id="dataTable" width="350px">
                             <tr>
@@ -115,9 +115,9 @@
                             </tr>
                             <tr>
                                 <TD><INPUT type="checkbox" name="chk" /></TD>
-                                <TD> <INPUT type="text" /></TD>
-                                <TD> <INPUT type="date" /></TD>
-                                <TD> <INPUT type="text" /></TD>
+                                <TD><INPUT type="text"/></TD>
+                                <TD><INPUT type="date"/></TD>
+                                <TD><INPUT type="text"/></TD>
                             </tr>
                         </TABLE>
 
@@ -153,13 +153,13 @@
             <div class="column">
                 <ul class="s-footer__social">
                     <li>
-                        <a href="https://github.com/eliboss/search-savior" target="_blank">
+                        <a href="https://github.com/eliboss/search-savior" target="_blank" title="view source code">
                             <img src="https://img.icons8.com/ios-filled/48/000000/github.png" alt="GitHub" />
                         </a>
                     </li>
                     <li>
-                        <a href="https://goofy-goofy.github.io/" target="_blank">
-                            <img src="https://img.icons8.com/ios-filled/48/000000/domain.png" / alt="Website">
+                        <a href="https://goofy-goofy.github.io/" target="_blank" title="view organisation">
+                            <img src="https://img.icons8.com/ios-filled/48/000000/domain.png"  alt="Website">
                         </a>
                     </li>
                 </ul>
@@ -187,7 +187,7 @@
                     </div>
 
                     <div class="large-4 tab-full column">
-                        <h3 class="h6">Team Members</h3>
+                        <h3 class="h6">Developers</h3>
 
                         <ul class="s-footer__list s-footer-list--nav group">
                             <li><a href="https://www.linkedin.com/in/elizabeth-crouther-66926389/"
@@ -203,7 +203,7 @@
             </div>
 
             <div class="ss-copyright">
-                <span>© Copyright Search Savior 2021</span>
+                <span>© Copyright <a href = "https://github.com/eliboss/search-savior">Search Savior</a> <script src = "js/year.js"></script></span>
             </div>
 
         </div> <!-- end footer__bottom -->

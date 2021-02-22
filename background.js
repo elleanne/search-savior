@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
 //     Testing purpose only 
 //     console.log("initial status: " + result.enabled);
+
     
     if (result.enabled !== null && checkbox !== null) {
       checkbox.checked = result.enabled;

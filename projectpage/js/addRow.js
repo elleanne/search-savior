@@ -1,6 +1,10 @@
-function addRow(tableID) {
+ var bool = document.getElementById("addR")
+ if(bool){
+     bool.addEventListener("click",addRow);
+ }
+ function addRow() {
 
-    var table = document.getElementById(tableID);
+    var table = document.getElementById("dataTable");
 
     var rowCount = table.rows.length;
     var row = table.insertRow(rowCount);
@@ -10,8 +14,6 @@ function addRow(tableID) {
     element1.type = "checkbox";
     element1.name="chkbox[]";
     cell1.appendChild(element1);
-
-    // var cell2 = row.insertCell(1);
 
     var cell3 = row.insertCell(1);
     var element2 = document.createElement("input");
@@ -30,27 +32,29 @@ function addRow(tableID) {
     element4.type = "text";
     element4.name = "txtbox[]";
     cell5.appendChild(element4);
-
-
 }
 
-function deleteRow(tableID) {
-try {
-var table = document.getElementById(tableID);
-var rowCount = table.rows.length;
+var bool = document.getElementById("deleteR")
+ if(bool){
+     bool.addEventListener("click",deleteRow);
+ }
+    function deleteRow() {
+    try {
+    var table = document.getElementById("dataTable");
+    var rowCount = table.rows.length;
 
-for(var i=0; i<rowCount; i++) {
-var row = table.rows[i];
-var chkbox = row.cells[0].childNodes[0];
-if(null != chkbox && true == chkbox.checked) {
-    table.deleteRow(i);
-    rowCount--;
-    i--;
-}
+    for(var i=0; i<rowCount; i++) {
+        var row = table.rows[i];
+        var chkbox = row.cells[0].childNodes[0];
+        if(null != chkbox && true == chkbox.checked) {
+        table.deleteRow(i);
+        rowCount--;
+        i--;
+    }
 
 
-}
-}catch(e) {
-alert(e);
-}
+    }
+    }catch(e) {
+    alert(e);
+    }
 }
