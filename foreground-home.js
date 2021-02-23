@@ -4,14 +4,14 @@ checkKeys();
 
 // If a new project was made on the index page, add it to the table
 // checking for null
-var bool = document.getElementById('addR')
+var bool = document.getElementById('addR');
 if(bool){
   bool.addEventListener("click", () => {
     var projTable = document
       .getElementById("dataTable")
       .getElementsByTagName("tbody")[0];
     console.log();
-    if (projTable.rows[2].getElementsByTagName("input")[1].value !== null) {
+    if (projTable.rows[1].getElementsByTagName("input")[1].value !== null) {
       chrome.tabs.executeScript(null, { file: "/js/addRow.js" }, () =>
         console.log("ran addRow.js")
       );

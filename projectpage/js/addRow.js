@@ -6,9 +6,9 @@ if (bool) {
 // If a new project was made on the index page, add it to the table
 function addRow() {
   var table = document.getElementById("dataTable");
-  var textName = table.rows[2].getElementsByTagName("input")[1].value;
-  var setDate = table.rows[2].getElementsByTagName("input")[2].value;
-  var textCategory = table.rows[2].getElementsByTagName("input")[3].value;
+  var textName = table.rows[1].getElementsByTagName("input")[1].value;
+  var setDate = table.rows[1].getElementsByTagName("input")[2].value;
+  var textCategory = table.rows[1].getElementsByTagName("input")[3].value;
 
   var rowCount = table.rows.length;
   var row = table.insertRow(rowCount);
@@ -59,6 +59,7 @@ var projTable = document.getElementById("dataTable")
   if(projTable){
     projTable.getElementsByTagName("tbody",addEntry)[0];
   }
+  
 function addEntry(storageKey) {
     console.log(storageKey);
 
