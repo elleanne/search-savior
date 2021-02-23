@@ -9,7 +9,7 @@ var treeArray = [];
 var curr_parentId = null;
 var allID = [];
 var allNodes = [];
-
+var i = 0; // for tree naming
 // The following is for testing purpose only.
 /*
 class TreeNode {
@@ -73,7 +73,9 @@ chrome.tabs.onActivated.addListener((tab) => {
     var checkbox = document.querySelector('input[type="checkbox"]');
     chrome.storage.local.get("enabled", function (result) {
       if (!result.enabled && allNodes.length !== 0) {
-        saveProject(checkbox, allNodes, "tree1");
+        treeName = "tree" + i;
+        i++;
+        saveProject(checkbox, allNodes, treeName);
         allNodes = [];
         tFBool = true; // reset all values
         treeArray = [];
@@ -142,30 +144,35 @@ chrome.tabs.onActivated.addListener((tab) => {
   });
 });
 
-function saveProject(onOff, allNodes) {
+function saveProject(onOff, allNodes, treeName) {
   if (!onOff) {
-    chrome.storage.sync.set({ tree: allNodes }); // TODO: need to make sync.get take an input, not hardcode tree in
-    var tempData = getProject();
+    console.log(treeName);
+    var treeVar = treeName;
+    var obj = {};
+    obj[treeVar] = allNodes;
+    console.log(obj);
+    chrome.storage.sync.set(obj); 
+    var tempData = getProject(treeName);
     console.log(allNodes.length);
     if (tempData !== null && allNodes.length !== 0) {
-      chrome.tabs.executeScript(null, { file: "/foreground-home.js" }, () =>
-        console.log("Injected Foreground-home.js")
-      );
-      chrome.tabs.executeScript(null, { file: "/foreground.js" }, () =>
-        console.log("Injected Foreground.js")
-      );
+    //   chrome.tabs.executeScript(null, { file: "/foreground-home.js" }, () =>
+    //     console.log("Injected Foreground-home.js")
+    //   );
+      
+      // chrome.tabs.executeScript(null, { file: "/foreground.js" }, () => {  
+      //   console.log("Injected Foreground.js")
+      // });
+      chrome.runtime.sendMessage(treeName);
     }
   }
 
   return;
 }
 
-function getProject() {
-  chrome.storage.sync.get("tree", function (data) {
-    // TODO: need to make sync.get take an input, not hardcode tree in
-    //console.log(data);
+function getProject(treeName) {
+  chrome.storage.sync.get(treeName, function (data) {
     var mySet = new Array(data);
-    console.log(mySet);
+    //console.log(mySet);
     return mySet;
   });
 }
