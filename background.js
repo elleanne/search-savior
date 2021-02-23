@@ -1,4 +1,4 @@
-// The follow 3 lines are for testing purposes only. 
+// The follow 3 lines are for testing purposes only.
 /*
 const chrome = require('sinon-chrome'); 
 window.chrome = chrome; 
@@ -48,24 +48,19 @@ var node = new TreeNode();
 document.addEventListener("DOMContentLoaded", function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
   chrome.storage.local.get("enabled", function (result) {
-    
-//     Testing purpose only 
-//     console.log("initial status: " + result.enabled);
+    //     Testing purpose only
+    //     console.log("initial status: " + result.enabled);
 
-    
     if (result.enabled !== null && checkbox !== null) {
       checkbox.checked = result.enabled;
     }
+    //else {
+    //   if(results.enabled === nul) console.error("checkbox on/off enabled variable is not stored in local storage");
+    //   else {console.error("cannot find checkbox id in html doc"); }
+    // }
   });
-
   if (checkbox) {
     checkbox.addEventListener("click", function () {
-// The following is for testing purpose only. 
-      /*
-      console.log("current status: " + checkbox.checked);
-      chrome.storage.local.set({ enabled: checkbox.checked }, function () {
-        console.log("confirmed"); 
-        */
       chrome.storage.local.set({ enabled: checkbox.checked }, function () {
         //console.log("confirmed");
       });
@@ -73,16 +68,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// need to fiugure out how to save the previos state
 chrome.tabs.onActivated.addListener((tab) => {
   chrome.tabs.get(tab.tabId, (current_tab_info) => {
     var checkbox = document.querySelector('input[type="checkbox"]');
     chrome.storage.local.get("enabled", function (result) {
-      if (!result.enabled && allNodes !== null) {
+      if (!result.enabled && allNodes.length !== 0) {
         saveProject(checkbox, allNodes, "tree1");
-        getProject("tree1"); //****  need to make this work for a user-input project name ***
+        allNodes = [];
+        tFBool = true; // reset all values
+        treeArray = [];
+        curr_parentId = null;
+        allID = [];
 
-        chrome.runtime.sendMessage({ greeting: "saved tree" });
+        //getProject("tree1"); //****  need to make this work for a user-input project name ***
       }
 
       //console.log("initial status: " + result.enabled);
@@ -147,12 +145,18 @@ chrome.tabs.onActivated.addListener((tab) => {
 function saveProject(onOff, allNodes) {
   if (!onOff) {
     chrome.storage.sync.set({ tree: allNodes }); // TODO: need to make sync.get take an input, not hardcode tree in
-    var tFBool = true; // reset all values
-    var treeArray = [];
-    var curr_parentId = null;
-    var allID = [];
-    var allNodes = [];
+    var tempData = getProject();
+    console.log(allNodes.length);
+    if (tempData !== null && allNodes.length !== 0) {
+      chrome.tabs.executeScript(null, { file: "/foreground-home.js" }, () =>
+        console.log("Injected Foreground-home.js")
+      );
+      chrome.tabs.executeScript(null, { file: "/foreground.js" }, () =>
+        console.log("Injected Foreground.js")
+      );
+    }
   }
+
   return;
 }
 
@@ -166,13 +170,15 @@ function getProject() {
   });
 }
 
-var makeNode = (urlName) => { // not used
+var makeNode = (urlName) => {
+  // not used
   var node1 = new TreeNode();
   node1.value = urlName;
   return node1;
 };
 
-var addDesc = (node2, desc) => { // not used
+var addDesc = (node2, desc) => {
+  // not used
   if (node2.descendants !== undefined) {
     var tempDesc = node2.descendants;
     tempDesc.push(desc);
