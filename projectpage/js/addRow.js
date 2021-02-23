@@ -6,9 +6,9 @@ if (bool) {
 // If a new project was made on the index page, add it to the table
 function addRow() {
   var table = document.getElementById("dataTable");
-  var textName = table.rows[2].getElementsByTagName("input")[1].value;
-  var setDate = table.rows[2].getElementsByTagName("input")[2].value;
-  var textCategory = table.rows[2].getElementsByTagName("input")[3].value;
+  var textName = table.rows[1].getElementsByTagName("input")[1].value;
+  var setDate = table.rows[1].getElementsByTagName("input")[2].value;
+  var textCategory = table.rows[1].getElementsByTagName("input")[3].value;
 
   var rowCount = table.rows.length;
   var row = table.insertRow(rowCount);
@@ -49,8 +49,8 @@ function addRow() {
   console.log(table);
 }
 
-// if there are new trees added to sync storage, add them to the page
-<<<<<<< Updated upstream
+//if there are new trees added to sync storage, add them to the page
+
 function addEntry(storageKey) {
     console.log(storageKey);
   var projTable = document
@@ -93,78 +93,58 @@ function addEntry(storageKey) {
   console.log(projTable);
 }
 
-var bool = document.getElementById("deleteR");
-if (bool) {
-  bool.addEventListener("click", deleteRow);
-}
-function deleteRow() {
-  try {
-    var table = document.getElementById("dataTable");
-    var rowCount = table.rows.length;
 
-    for (var i = 0; i < rowCount; i++) {
-      var row = table.rows[i];
-      var chkbox = row.cells[0].childNodes[0];
-      if (null != chkbox && true == chkbox.checked) {
-        table.deleteRow(i);
-        rowCount--;
-        i--;
-      }
-    }
-  } catch (e) {
-    alert(e);
-=======
-var projTable = document.getElementById("dataTable");
-if (projTable) {
-  projTable.getElementsByTagName("tbody", addEntry)[0];
-}
+// var projTable = document.getElementById("dataTable");
+// if (projTable) {
+//   projTable.getElementsByTagName("tbody", addEntry)[0];
+// }
 
-function addEntry(storageKey) {
-  console.log(storageKey);
+// function addEntry(storageKey) {
+//   console.log(storageKey);
 
-  // var projTable = document
-  //   .getElementById("dataTable")
-  //   .getElementsByTagName("tbody")[0];
+//   // var projTable = document
+//   //   .getElementById("dataTable")
+//   //   .getElementsByTagName("tbody")[0];
 
-  //checking for null
+//   //checking for null
 
-  // create rows and cells
+//   // create rows and cells
 
-  if (projTable != null) {
-    console.log(projTable);
-    var newRow = projTable.insertRow();
-    var newCheck = newRow.insertCell();
-    var newTitle = newRow.insertCell();
-    var newDate = newRow.insertCell();
-    var newCategory = newRow.insertCell();
+//   if (projTable != null) {
+//     console.log(projTable);
+//     var newRow = projTable.insertRow();
+//     var newCheck = newRow.insertCell();
+//     var newTitle = newRow.insertCell();
+//     var newDate = newRow.insertCell();
+//     var newCategory = newRow.insertCell();
 
-    // create elements to add to table
-    var newText = document.createTextNode(storageKey);
+//     // create elements to add to table
+//     var newText = document.createTextNode(storageKey);
 
-    var newCheckEle = document.createElement("input");
+//     var newCheckEle = document.createElement("input");
 
-    // set current date
-    var d = new Date();
-    var n = d.getDate();
-    n += "-" + d.getMonth() + "-" + d.getFullYear();
-    // create category text
-    var date = document.createTextNode(n);
-    var categoryText = document.createTextNode("searched for trees");
-    newCheckEle.type = "checkbox";
-    newText.type = "link";
-    newTitle.id = storageKey;
-    // append nodes to table
-    newCheck.appendChild(newCheckEle);
-    newTitle.appendChild(newText);
-    newDate.appendChild(date);
-    newCategory.appendChild(categoryText);
+//     // set current date
+//     var d = new Date();
+//     var n = d.getDate();
+//     n += "-" + d.getMonth() + "-" + d.getFullYear();
+//     // create category text
+//     var date = document.createTextNode(n);
+//     var categoryText = document.createTextNode("searched for trees");
+//     newCheckEle.type = "checkbox";
+//     newText.type = "link";
+//     newTitle.id = storageKey;
+//     // append nodes to table
+//     newCheck.appendChild(newCheckEle);
+//     newTitle.appendChild(newText);
+//     newDate.appendChild(date);
+//     newCategory.appendChild(categoryText);
 
-    // change innertext to link
-    console.log(document.getElementById(storageKey));
-    document.getElementById(storageKey).innerHTML =
-      "<a href=search.html>" + storageKey + "</a>";
-    // print table for testing
-    console.log(projTable);
->>>>>>> Stashed changes
-  }
-}
+//     // change innertext to link
+//     console.log(document.getElementById(storageKey));
+//     document.getElementById(storageKey).innerHTML =
+//       "<a href=search.html>" + storageKey + "</a>";
+//     // print table for testing
+//     console.log(projTable);
+
+//   }
+// }

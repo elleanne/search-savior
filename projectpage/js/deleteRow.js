@@ -1,6 +1,7 @@
 var bool = document.getElementById("deleteR");
 if (bool) {
   bool.addEventListener("click", deleteRow);
+  console.log("click");
 }
 function deleteRow() {
   try {
