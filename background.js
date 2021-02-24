@@ -83,7 +83,7 @@ chrome.tabs.onActivated.addListener((tab) => {
         //getProject("tree1"); //****  need to make this work for a user-input project name ***
       }
 
-      //console.log("initial status: " + result.enabled);
+      // console.log("initial status: " + result.enabled);
       if (result.enabled) {
         //console.log(current_tab_info.url);
         var newdata = {
@@ -120,7 +120,7 @@ chrome.tabs.onActivated.addListener((tab) => {
             curr_parentId = tab.tabId;
             //console.log(newdata);
             treeArray.push(newdata);
-            //console.log(treeArray);
+            // console.log(treeArray);
             allID.push(tab.tabId);
             allNodes.push(node);
 
@@ -145,17 +145,17 @@ chrome.tabs.onActivated.addListener((tab) => {
 function saveProject(onOff, allNodes) {
   if (!onOff) {
     chrome.storage.sync.set({ tree: allNodes }); // TODO: need to make sync.get take an input, not hardcode tree in
-    var tempData = getProject();
-    console.log(allNodes.length);
-    if (tempData !== null && allNodes.length !== 0) {
-      chrome.tabs.executeScript(null, { file: "/foreground-home.js" }, () =>
-        console.log("Injected Foreground-home.js")
-      );
-      chrome.tabs.executeScript(null, { file: "/foreground.js" }, () =>
-        console.log("Injected Foreground.js")
-      );
+    // var tempData = getProject();
+    // console.log(allNodes.length);
+    // if (tempData !== null && allNodes.length !== 0) {
+    //   chrome.tabs.executeScript(null, { file: "/foreground-home.js" }, () =>
+    //     console.log("Injected Foreground-home.js")
+    //   );
+    //   chrome.tabs.executeScript(null, { file: "/foreground.js" }, () =>
+    //     console.log("Injected Foreground.js")
+    //   );
     }
-  }
+  
 
   return;
 }
@@ -165,7 +165,7 @@ function getProject() {
     // TODO: need to make sync.get take an input, not hardcode tree in
     //console.log(data);
     var mySet = new Array(data);
-    console.log(mySet);
+    //console.log(mySet);
     return mySet;
   });
 }
