@@ -19,10 +19,12 @@ if(bool){
 }
 
 // if delete button clicked, delete row
-var bool = document.getElementById("deleteR").addEventListener("click", () => {
+var bool = document.getElementById("deleteR")
+if(bool){
+  bool.addEventListener("click", () => {
   deleteRow();
 });
-
+}
 // listen for a new tree added to storage.sync
 chrome.storage.onChanged.addListener(function (changes, namespace) {
   for (var key in changes) {

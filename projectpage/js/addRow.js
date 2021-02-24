@@ -40,9 +40,9 @@ function addRow() {
 //if there are new trees added to sync storage, add them to the page
 
 function addEntry(storageKey) {
-  var projTable = document
-    .getElementById("dataTable")
-    .getElementsByTagName("tbody")[0];
+  var projTable = document.getElementById("dataTable")
+  if(projTable){
+    projTable.getElementsByTagName("tbody")[0];
 
   // create rows and cells
 
@@ -78,4 +78,4 @@ function addEntry(storageKey) {
   document.getElementById(storageKey).innerHTML =
     "<a href=search.html>" + storageKey + "</a>";
 }
-
+}
