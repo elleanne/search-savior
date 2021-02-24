@@ -1,4 +1,5 @@
 console.log("execute fore");
+
 var treeName;
 chrome.runtime.onMessage.addListener(function (request) {
   treeName = request;
@@ -10,6 +11,19 @@ document.addEventListener("DOMContentLoaded", function () {
   loadDoc();
 });
 
+
+// chrome.runtime.onMessage.addListener(function (request) {
+//   console.log("from the extension");
+//   if(request.greeting === "are you ready", ()=>{
+//     chrome.runtime.sendMessage({ greeting: "ready" });
+//   });
+//   if (request.greeting === "saved tree") {
+//     console.log("got message");
+//     loadDoc();
+//   }
+// });
+
+loadDoc();
 class TreeNode {
   constructor(value) {
     this.value = value;
@@ -82,6 +96,7 @@ function loadDoc() {
                     responseText[i][j].descendants +
                     "</a></span></ul></li></li></ul>";
                 }
+
               }
             }
           }
@@ -89,6 +104,8 @@ function loadDoc() {
       };
       xhttp.open("GET", "ajax_info.txt", true);
       xhttp.send();
+
     }
+
   });
 }

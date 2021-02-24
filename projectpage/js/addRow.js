@@ -34,6 +34,7 @@ function addRow() {
   element4.type = "text";
   element4.name = "txtbox[]";
   cell5.innerHTML = textCategory || element4;
+
 }
 
 //if there are new trees added to sync storage, add them to the page
@@ -44,6 +45,7 @@ function addEntry(storageKey) {
     .getElementsByTagName("tbody")[0];
 
   // create rows and cells
+
   var newRow = projTable.insertRow();
   var newCheck = newRow.insertCell();
   var newTitle = newRow.insertCell();
@@ -58,14 +60,14 @@ function addEntry(storageKey) {
   var d = new Date();
   var n = d.getDate();
   n += "-" + d.getMonth() + "-" + d.getFullYear();
-  
+
   // create category text
   var date = document.createTextNode(n);
   var categoryText = document.createTextNode("searched for trees");
   newCheckEle.type = "checkbox";
   newText.type = "link";
   newTitle.id = storageKey;
- 
+
   // append nodes to table
   newCheck.appendChild(newCheckEle);
   newTitle.appendChild(newText);
@@ -76,3 +78,4 @@ function addEntry(storageKey) {
   document.getElementById(storageKey).innerHTML =
     "<a href=search.html>" + storageKey + "</a>";
 }
+

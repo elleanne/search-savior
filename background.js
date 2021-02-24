@@ -23,9 +23,14 @@ document.addEventListener("DOMContentLoaded", function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
   chrome.storage.local.get("enabled", function (result) {
 
+
     if (result.enabled !== null && checkbox !== null) {
       checkbox.checked = result.enabled;
     }
+    //else {
+    //   if(results.enabled === nul) console.error("checkbox on/off enabled variable is not stored in local storage");
+    //   else {console.error("cannot find checkbox id in html doc"); }
+    // }
   });
   if (checkbox) {
     checkbox.addEventListener("click", function () {
@@ -40,14 +45,17 @@ chrome.tabs.onActivated.addListener((tab) => {
     var checkbox = document.querySelector('input[type="checkbox"]');
     chrome.storage.local.get("enabled", function (result) {
       if (!result.enabled && allNodes.length !== 0) {
+
         treeName = "tree" + i;
         i++;
         saveProject(checkbox, allNodes, treeName);
+
         allNodes = [];
         tFBool = true; // reset all values
         treeArray = [];
         curr_parentId = null;
         allID = [];
+
       }
 
       if (result.enabled) {
@@ -78,6 +86,7 @@ chrome.tabs.onActivated.addListener((tab) => {
             node = new TreeNode(current_tab_info.url);
             curr_parentId = tab.tabId;
             treeArray.push(newdata);
+
             allID.push(tab.tabId);
             allNodes.push(node);
           }
@@ -107,6 +116,7 @@ function saveProject(onOff, allNodes, treeName) {
       chrome.runtime.sendMessage(treeName);
     }
   }
+
   return;
 }
 

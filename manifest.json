@@ -24,6 +24,9 @@
         "storage",
         "notifications",
         "http://*/*",
-        "https://*/*"
+        "https://www.google.com/_/chrome/newtab*%22",
+        "<all_urls>",
+        "activeTab",
+        "background"
     ]
 }

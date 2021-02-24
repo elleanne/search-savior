@@ -1,10 +1,11 @@
 console.log("execute foreground.home");
 
-checkKeys(); // check if any trees need to be added to search.html
+checkKeys();
 
 // If a new project was made on the index page, add it to the table
-var bool = document.getElementById("addR");
-if (bool) {
+// checking for null
+var bool = document.getElementById('addR');
+if(bool){
   bool.addEventListener("click", () => {
     var projTable = document
       .getElementById("dataTable")
@@ -12,6 +13,7 @@ if (bool) {
     if (projTable.rows[1].getElementsByTagName("input")[1].value !== null) {
       addRow(); // add row to index.html table
       checkKeys(); // add tree to search page
+
     }
   });
 }
@@ -40,6 +42,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
   }
 });
 
+
 // if there are new trees added to sync storage, add them to the page
 function checkKeys() {
   var setAllKeys;
@@ -54,6 +57,7 @@ function checkKeys() {
         ) {
           addEntry(allKeys[i]);
         }
+
       }
     }
   });

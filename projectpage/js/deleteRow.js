@@ -1,9 +1,9 @@
 var bool = document.getElementById("deleteR");
 if (bool) {
   bool.addEventListener("click", deleteRow);
-  console.log("click");
 }
 // When delete button pressed in index.html, delete row in table and data in storage.sync
+
 function deleteRow() {
   try {
     var table = document.getElementById("dataTable");
@@ -21,6 +21,7 @@ function deleteRow() {
           console.log(v1);
         });
         // delete from table
+
         table.deleteRow(i);
         rowCount--;
         i--;
