@@ -28,123 +28,51 @@ function addRow() {
   element3.type = "date";
   element3.name = "txtbox[]";
   cell4.innerHTML = setDate || element3;
-  //cell4.appendChild(element3);
 
   var cell5 = row.insertCell(3);
   var element4 = document.createElement("input");
   element4.type = "text";
   element4.name = "txtbox[]";
   cell5.innerHTML = textCategory || element4;
-  // cell5.appendChild(element4);
-
-  var v1 = textName;
-  var obj = {};
-  obj[v1] = [];
-  chrome.storage.sync.set(obj);
-
-  chrome.storage.sync.get(v1, function (result) {
-    console.log(v1, result);
-    //console output = k1 {v1:'s1'}
-  });
-  console.log(table);
 }
 
 //if there are new trees added to sync storage, add them to the page
 
 function addEntry(storageKey) {
-    console.log(storageKey);
   var projTable = document
     .getElementById("dataTable")
     .getElementsByTagName("tbody")[0];
+
   // create rows and cells
-  console.log(projTable);
   var newRow = projTable.insertRow();
   var newCheck = newRow.insertCell();
   var newTitle = newRow.insertCell();
   var newDate = newRow.insertCell();
   var newCategory = newRow.insertCell();
-  
+
   // create elements to add to table
   var newText = document.createTextNode(storageKey);
-  
   var newCheckEle = document.createElement("input");
 
   // set current date
   var d = new Date();
   var n = d.getDate();
   n += "-" + d.getMonth() + "-" + d.getFullYear();
+  
   // create category text
   var date = document.createTextNode(n);
   var categoryText = document.createTextNode("searched for trees");
   newCheckEle.type = "checkbox";
   newText.type = "link";
   newTitle.id = storageKey;
+ 
   // append nodes to table
   newCheck.appendChild(newCheckEle);
   newTitle.appendChild(newText);
   newDate.appendChild(date);
   newCategory.appendChild(categoryText);
-  
 
   // change innertext to link
-  console.log(document.getElementById(storageKey));
-  document.getElementById(storageKey).innerHTML = "<a href=search.html>"+storageKey+ "</a>";
-  // print table for testing
-  console.log(projTable);
+  document.getElementById(storageKey).innerHTML =
+    "<a href=search.html>" + storageKey + "</a>";
 }
-
-
-// var projTable = document.getElementById("dataTable");
-// if (projTable) {
-//   projTable.getElementsByTagName("tbody", addEntry)[0];
-// }
-
-// function addEntry(storageKey) {
-//   console.log(storageKey);
-
-//   // var projTable = document
-//   //   .getElementById("dataTable")
-//   //   .getElementsByTagName("tbody")[0];
-
-//   //checking for null
-
-//   // create rows and cells
-
-//   if (projTable != null) {
-//     console.log(projTable);
-//     var newRow = projTable.insertRow();
-//     var newCheck = newRow.insertCell();
-//     var newTitle = newRow.insertCell();
-//     var newDate = newRow.insertCell();
-//     var newCategory = newRow.insertCell();
-
-//     // create elements to add to table
-//     var newText = document.createTextNode(storageKey);
-
-//     var newCheckEle = document.createElement("input");
-
-//     // set current date
-//     var d = new Date();
-//     var n = d.getDate();
-//     n += "-" + d.getMonth() + "-" + d.getFullYear();
-//     // create category text
-//     var date = document.createTextNode(n);
-//     var categoryText = document.createTextNode("searched for trees");
-//     newCheckEle.type = "checkbox";
-//     newText.type = "link";
-//     newTitle.id = storageKey;
-//     // append nodes to table
-//     newCheck.appendChild(newCheckEle);
-//     newTitle.appendChild(newText);
-//     newDate.appendChild(date);
-//     newCategory.appendChild(categoryText);
-
-//     // change innertext to link
-//     console.log(document.getElementById(storageKey));
-//     document.getElementById(storageKey).innerHTML =
-//       "<a href=search.html>" + storageKey + "</a>";
-//     // print table for testing
-//     console.log(projTable);
-
-//   }
-// }

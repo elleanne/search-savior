@@ -1,12 +1,11 @@
 console.log("execute fore");
-var treeName; //= chrome.runtime.onMessage;
+var treeName;
 chrome.runtime.onMessage.addListener(function (request) {
   treeName = request;
-  console.log(treeName);
   loadDoc();
 });
 
-// listen for
+// listen for page loaded
 document.addEventListener("DOMContentLoaded", function () {
   loadDoc();
 });
@@ -26,6 +25,7 @@ var auto_refresh = setInterval(function () {
   counter++;
 }, 1000);
 
+// get all keys in storage.sync to put in search.html
 function getKeys() {
   chrome.storage.sync.get(null, function (items) {
     var allKeys = Object.keys(items);
@@ -43,23 +43,18 @@ function loadDoc() {
     treeName = getKeys();
   }
   chrome.storage.sync.get(treeName, function (data) {
-    console.log(treeName);
-
     var responseText = Object.values(data);
     var keys = Object.keys(data);
 
     if (treeName !== "z") {
       var xhttp = new XMLHttpRequest();
-      //console.log(xhttp);
       xhttp.onreadystatechange = function () {
-        //console.log("before ready" + document.getElementById("demo").innerHTML);
-        console.log(responseText);
         if (this.readyState == 4 && this.status == 0) {
           for (i in keys) {
             for (j in responseText[i]) {
-              console.log(responseText[i][j].value + " " + i+ " " +j);
               if (
-                !document.getElementById("demo").innerHTML.includes(keys[i]) && responseText[i][j].value !== ""
+                !document.getElementById("demo").innerHTML.includes(keys[i]) &&
+                responseText[i][j].value !== ""
               ) {
                 if (
                   document.getElementById("demo").innerHTML ===

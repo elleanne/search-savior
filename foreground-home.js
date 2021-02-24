@@ -1,6 +1,6 @@
 console.log("execute foreground.home");
 
-checkKeys();
+checkKeys(); // check if any trees need to be added to search.html
 
 // If a new project was made on the index page, add it to the table
 var bool = document.getElementById("addR");
@@ -10,19 +10,18 @@ if (bool) {
       .getElementById("dataTable")
       .getElementsByTagName("tbody")[0];
     if (projTable.rows[1].getElementsByTagName("input")[1].value !== null) {
-    //   chrome.tabs.executeScript(null, { file: "/js/addRow.js" }, () =>
-    //     console.log("ran addRow.js")
-    //   );
-        addRow();
-        checkKeys();
+      addRow(); // add row to index.html table
+      checkKeys(); // add tree to search page
     }
   });
 }
+
+// if delete button clicked, delete row
 var bool = document.getElementById("deleteR").addEventListener("click", () => {
-    deleteRow();
+  deleteRow();
 });
 
-// listen for
+// listen for a new tree added to storage.sync
 chrome.storage.onChanged.addListener(function (changes, namespace) {
   for (var key in changes) {
     var storageChange = changes[key];
@@ -30,7 +29,6 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
       window.open("/projectpage/search.html"); // solution for now to refresh page when index.html is open is doesn't want to refresh
       checkKeys();
     }
-
     console.log(
       'Storage key "%s" in namespace "%s" changed. ' +
         'Old value was "%s", new value is "%s".',
@@ -48,15 +46,12 @@ function checkKeys() {
   chrome.storage.sync.get(null, function (items) {
     var allKeys = Object.keys(items);
     if (allKeys !== null) {
-      console.log(allKeys);
       setAllKeys = allKeys;
       for (i in allKeys) {
-        //console.log(document.getElementById(allKeys[i]));
         if (
           document.getElementById(allKeys[i]) === null &&
           allKeys[i] !== "z"
         ) {
-          console.log(allKeys[i]);
           addEntry(allKeys[i]);
         }
       }

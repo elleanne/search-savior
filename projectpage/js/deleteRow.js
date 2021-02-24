@@ -3,6 +3,7 @@ if (bool) {
   bool.addEventListener("click", deleteRow);
   console.log("click");
 }
+// When delete button pressed in index.html, delete row in table and data in storage.sync
 function deleteRow() {
   try {
     var table = document.getElementById("dataTable");
