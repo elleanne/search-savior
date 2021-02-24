@@ -39,6 +39,7 @@ var auto_refresh = setInterval(function () {
   counter++;
 }, 1000);
 
+// add action listener for clicking on a specific tree  ,  then call loadDoc for only that tree
 // get all keys in storage.sync to put in search.html
 function getKeys() {
   chrome.storage.sync.get(null, function (items) {

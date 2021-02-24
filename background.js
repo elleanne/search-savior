@@ -9,7 +9,7 @@ var treeArray = [];
 var curr_parentId = null;
 var allID = [];
 var allNodes = [];
-var i = 0; // for tree naming
+var i = 0; // for project naming
 
 class TreeNode {
   constructor(value) {
@@ -19,6 +19,7 @@ class TreeNode {
 }
 
 var node = new TreeNode();
+// Event li
 document.addEventListener("DOMContentLoaded", function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
   chrome.storage.local.get("enabled", function (result) {
@@ -46,10 +47,11 @@ chrome.tabs.onActivated.addListener((tab) => {
     chrome.storage.local.get("enabled", function (result) {
       if (!result.enabled && allNodes.length !== 0) {
 
-        treeName = "tree" + i;
+        // make popup for naming tree or default to treeName
+        
+        treeName = "project" + i;
         i++;
         saveProject(checkbox, allNodes, treeName);
-
         allNodes = [];
         tFBool = true; // reset all values
         treeArray = [];
