@@ -2633,3 +2633,7 @@ ul, #myUL {
 #dataTable th{
       text-align: center;
   }
+
+.container {
+    display: flex;
+}
