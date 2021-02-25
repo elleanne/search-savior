@@ -77,7 +77,7 @@ function addEntry(storageKey) {
     document.getElementById(storageKey).innerHTML =
       "<form id=" +
       storageKey +
-      ' action="search.html" target="_blank"><button type="submit">' +
+      ' action="search.html"><button type="submit">' +
       storageKey +
       "</button></form>";
     document.getElementById(storageKey).addEventListener("click", () => {
