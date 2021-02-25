@@ -14,14 +14,21 @@ function deleteRow() {
       var chkbox = row.cells[0].childNodes[0];
       if (null != chkbox && true == chkbox.checked) {
         // delete from storage
-        var v1 = table.rows[i].getElementsByTagName("td")[1].innerText;
+        var v1 = table.rows[i]
+          .getElementsByTagName("form")[0]
+          .innerText.toLowerCase();
+        console.log(
+          table.rows[i].getElementsByTagName("form")[0].innerText.toLowerCase()
+        );
+
+        console.log(v1);
+        // delete from storage
         chrome.storage.sync.get(v1, function (data) {
           console.log(v1);
           chrome.storage.sync.remove(v1);
           console.log(v1);
         });
         // delete from table
-
         table.deleteRow(i);
         rowCount--;
         i--;

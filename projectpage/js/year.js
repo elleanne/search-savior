@@ -1,10 +1,4 @@
-//document.write(new Date().getFullYear());
-/* 
-var sNew = document.createElement("script");
-sNew.async = true;
-sNew.src = "https://example.com/script.min.js";
-var s0 = document.getElementsByTagName('script')[0];
-s0.parentNode.insertBefore(sNew, s0);
-*/
-
-
+// get current year and add it to the footer
+var date = document.createTextNode(" " + new Date().getFullYear());
+var copyright = document.getElementById("copyright");
+copyright.appendChild(date);

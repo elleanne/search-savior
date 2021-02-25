@@ -34,48 +34,54 @@ function addRow() {
   element4.type = "text";
   element4.name = "txtbox[]";
   cell5.innerHTML = textCategory || element4;
-
 }
 
 //if there are new trees added to sync storage, add them to the page
 
 function addEntry(storageKey) {
-  var projTable = document.getElementById("dataTable")
-  if(projTable){
+  var projTable = document.getElementById("dataTable");
+  if (projTable) {
     projTable.getElementsByTagName("tbody")[0];
 
-  // create rows and cells
+    // create rows and cells
 
-  var newRow = projTable.insertRow();
-  var newCheck = newRow.insertCell();
-  var newTitle = newRow.insertCell();
-  var newDate = newRow.insertCell();
-  var newCategory = newRow.insertCell();
+    var newRow = projTable.insertRow();
+    var newCheck = newRow.insertCell();
+    var newTitle = newRow.insertCell();
+    var newDate = newRow.insertCell();
+    var newCategory = newRow.insertCell();
 
-  // create elements to add to table
-  var newText = document.createTextNode(storageKey);
-  var newCheckEle = document.createElement("input");
+    // create elements to add to table
+    var newText = document.createTextNode(storageKey);
+    var newCheckEle = document.createElement("input");
 
-  // set current date
-  var d = new Date();
-  var n = d.getDate();
-  n += "-" + d.getMonth() + "-" + d.getFullYear();
+    // set current date
+    var d = new Date();
+    var n = d.getDate();
+    n += "-" + d.getMonth() + "-" + d.getFullYear();
 
-  // create category text
-  var date = document.createTextNode(n);
-  var categoryText = document.createTextNode("searched for trees");
-  newCheckEle.type = "checkbox";
-  newText.type = "link";
-  newTitle.id = storageKey;
+    // create category text
+    var date = document.createTextNode(n);
+    var categoryText = document.createTextNode("searched for trees");
+    newCheckEle.type = "checkbox";
+    newText.type = "link";
+    newTitle.id = storageKey;
 
-  // append nodes to table
-  newCheck.appendChild(newCheckEle);
-  newTitle.appendChild(newText);
-  newDate.appendChild(date);
-  newCategory.appendChild(categoryText);
+    // append nodes to table
+    newCheck.appendChild(newCheckEle);
+    newTitle.appendChild(newText);
+    newDate.appendChild(date);
+    newCategory.appendChild(categoryText);
 
-  // change innertext to link
-  document.getElementById(storageKey).innerHTML =
-    "<a href=search.html>" + storageKey + "</a>";
-}
+    // change innertext to link
+    document.getElementById(storageKey).innerHTML =
+      "<form id=" +
+      storageKey +
+      ' action="search.html" target="_blank"><button type="submit">' +
+      storageKey +
+      "</button></form>";
+    document.getElementById(storageKey).addEventListener("click", () => {
+      saveName(storageKey);
+    });
+  }
 }

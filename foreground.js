@@ -1,29 +1,15 @@
 console.log("execute fore");
 
 var treeName;
-chrome.runtime.onMessage.addListener(function (request) {
-  treeName = request;
-  loadDoc();
-});
 
-// listen for page loaded
+//listen for page loaded: projectName is a variable is saved when project button is clicked in foreground-home
 document.addEventListener("DOMContentLoaded", function () {
-  loadDoc();
+  chrome.storage.local.get("projectName", function (result) {
+    treeName = Object.entries(result)[0][1];
+    loadDoc();
+  });
 });
 
-
-// chrome.runtime.onMessage.addListener(function (request) {
-//   console.log("from the extension");
-//   if(request.greeting === "are you ready", ()=>{
-//     chrome.runtime.sendMessage({ greeting: "ready" });
-//   });
-//   if (request.greeting === "saved tree") {
-//     console.log("got message");
-//     loadDoc();
-//   }
-// });
-
-loadDoc();
 class TreeNode {
   constructor(value) {
     this.value = value;
@@ -39,7 +25,7 @@ var auto_refresh = setInterval(function () {
   counter++;
 }, 1000);
 
-// add action listener for clicking on a specific tree  ,  then call loadDoc for only that tree
+// NOT USING now, might need if we make a page with all urls
 // get all keys in storage.sync to put in search.html
 function getKeys() {
   chrome.storage.sync.get(null, function (items) {
@@ -53,9 +39,12 @@ function getKeys() {
   });
 }
 
+// load search.html page with urls for a particular project
 function loadDoc() {
   if (treeName === undefined) {
-    treeName = getKeys();
+    chrome.storage.local.get(projectName, function (data) {
+      treeName = Object.entries(result)[0][1];
+    });
   }
   chrome.storage.sync.get(treeName, function (data) {
     var responseText = Object.values(data);
@@ -97,7 +86,6 @@ function loadDoc() {
                     responseText[i][j].descendants +
                     "</a></span></ul></li></li></ul>";
                 }
-
               }
             }
           }
@@ -105,8 +93,6 @@ function loadDoc() {
       };
       xhttp.open("GET", "ajax_info.txt", true);
       xhttp.send();
-
     }
-
   });
 }

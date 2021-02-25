@@ -19,24 +19,17 @@ class TreeNode {
 }
 
 var node = new TreeNode();
-// Event li
+// Listen for page loaded: check if tooggle(checkbox) is on or off
 document.addEventListener("DOMContentLoaded", function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
   chrome.storage.local.get("enabled", function (result) {
-
-
     if (result.enabled !== null && checkbox !== null) {
       checkbox.checked = result.enabled;
     }
-    //else {
-    //   if(results.enabled === nul) console.error("checkbox on/off enabled variable is not stored in local storage");
-    //   else {console.error("cannot find checkbox id in html doc"); }
-    // }
   });
   if (checkbox) {
     checkbox.addEventListener("click", function () {
-      chrome.storage.local.set({ enabled: checkbox.checked }, function () {
-      });
+      chrome.storage.local.set({ enabled: checkbox.checked }, function () {});
     });
   }
 });
@@ -46,9 +39,7 @@ chrome.tabs.onActivated.addListener((tab) => {
     var checkbox = document.querySelector('input[type="checkbox"]');
     chrome.storage.local.get("enabled", function (result) {
       if (!result.enabled && allNodes.length !== 0) {
-
         // make popup for naming tree or default to treeName
-        
         treeName = "project" + i;
         i++;
         saveProject(checkbox, allNodes, treeName);
@@ -57,7 +48,6 @@ chrome.tabs.onActivated.addListener((tab) => {
         treeArray = [];
         curr_parentId = null;
         allID = [];
-
       }
 
       if (result.enabled) {
@@ -106,20 +96,11 @@ chrome.tabs.onActivated.addListener((tab) => {
 
 function saveProject(onOff, allNodes, treeName) {
   if (!onOff) {
-    console.log(treeName);
     var treeVar = treeName;
     var obj = {};
     obj[treeVar] = allNodes;
-    console.log(obj);
     chrome.storage.sync.set(obj);
-    var tempData = getProject(treeName);
-    console.log(allNodes.length);
-    if (tempData !== null && allNodes.length !== 0) {
-      chrome.runtime.sendMessage(treeName);
-    }
   }
-
-  return;
 }
 
 function getProject(treeName) {
