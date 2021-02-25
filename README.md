@@ -12,8 +12,11 @@ We used HTML, CSS and JavaScript for the landing page for our webpage and Chrome
 - Working with JavaScript (it's a pain in the a**)
 - Different timezone but we made it work 
 ## Accomplishments that we're proud of
-
+- Learning Web Dev using HTML, CSS and JavaScript 
+- Learning and deploying Chrome Extension 
+- Teamwork with different timezone
 ## What we learned
 - Teamwork makes the dream work
 - JavaScript, HTML, and CSS
 ## What's next for SearchSavior
+- Adding new features such as saving the tabs every time when the user switches tabs
