@@ -9,7 +9,7 @@ var treeArray = [];
 var curr_parentId = null;
 var allID = [];
 var allNodes = [];
-var i = 1; // for project naming
+var i = 1; 
 
 class TreeNode {
   constructor(value) {
