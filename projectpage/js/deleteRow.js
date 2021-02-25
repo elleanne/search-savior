@@ -1,9 +1,9 @@
+// listen for delete button clicked
 var bool = document.getElementById("deleteR");
 if (bool) {
   bool.addEventListener("click", deleteRow);
 }
-// When delete button pressed in index.html, delete row in table and data in storage.sync
-
+//When delete button pressed in index.html, delete row in table and data in storage.sync
 function deleteRow() {
   try {
     var table = document.getElementById("dataTable");
@@ -15,12 +15,9 @@ function deleteRow() {
       if (null != chkbox && true == chkbox.checked) {
         // delete from storage
         var v1 = table.rows[i]
-          .getElementsByTagName("form")[0]
-          .innerText.toLowerCase();
-        console.log(
-          table.rows[i].getElementsByTagName("form")[0].innerText.toLowerCase()
-        );
-
+          .getElementsByTagName("form")[0].id;
+        console.log(table.rows[i].getElementsByTagName("form").outerText);
+        
         console.log(v1);
         // delete from storage
         chrome.storage.sync.get(v1, function (data) {

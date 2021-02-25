@@ -75,9 +75,9 @@ function addEntry(storageKey) {
 
     // change innertext to link
     document.getElementById(storageKey).innerHTML =
-      "<form id=" +
+      '<form id="' +
       storageKey +
-      ' action="search.html"><button type="submit">' +
+      '" action="search.html"><button type="submit">' +
       storageKey +
       "</button></form>";
     document.getElementById(storageKey).addEventListener("click", () => {
