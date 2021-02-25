@@ -43,6 +43,7 @@ chrome.tabs.onActivated.addListener((tab) => {
         treeName = "project" + i;
         i++;
         saveProject(checkbox, allNodes, treeName);
+        chrome.storage.local.set({ projectName: treeName });
         allNodes = [];
         tFBool = true; // reset all values
         treeArray = [];
