@@ -17,7 +17,7 @@ class TreeNode {
   }
 }
 
-// reload page
+//refresh page
 var counter = 1;
 var auto_refresh = setInterval(function () {
   var newcontent = " <h4>Your Search Tree</h4>";
@@ -54,43 +54,92 @@ function loadDoc() {
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 0) {
+          var arrayOfChildren = [];
           for (i in keys) {
             for (j in responseText[i]) {
+              console.log(i + " " + j);
               if (
                 !document.getElementById("demo").innerHTML.includes(keys[i]) &&
                 responseText[i][j].value !== ""
               ) {
-                if (
-                  document.getElementById("demo").innerHTML ===
-                  "<h2>New Tree Here</h2>"
-                ) {
-                  document.getElementById("demo").innerHTML =
-                    '<ul id="tree"><li><span class="caret"><a href="' +
-                    responseText[i][j].value +
-                    '">' +
-                    responseText[i][j].value +
-                    '</a></span><ul class="nested"><li><span class="caret"><a href="' +
-                    responseText[i][j].descendants +
-                    '">' +
-                    responseText[i][j].descendants +
-                    "</a></span></ul></li></li></ul>";
-                } else {
-                  document.getElementById("demo").innerHTML +=
-                    '<ul id="tree"><li><span class="caret"><a href="' +
-                    responseText[i][j].value +
-                    '">' +
-                    responseText[i][j].value +
-                    '</a></span><ul class="nested"><li><span class="caret"><a href="' +
-                    responseText[i][j].descendants +
-                    '">' +
-                    responseText[i][j].descendants +
-                    "</a></span></ul></li></li></ul>";
+                var treeHead = responseText[i][j].value;
+                if (!arrayOfChildren.includes(treeHead)) {
+                  arrayOfChildren.push(treeHead);
+
+                  var desc = responseText[i][j].descendants;
+                  console.log("head: " + treeHead + " , desc: " + desc);
+                  var treeStruct = document.createElement("ul");
+                  var listStruct = document.createElement("li");
+                  var carrot = document.createElement("span");
+
+                  treeStruct.className = "myUL";
+                  carrot.className = "caret";
+                  carrot.id = treeHead;
+
+                  carrot.innerHTML =
+                    '<a href="' + treeHead + '">' + treeHead + "</a>";
+                  listStruct.appendChild(carrot);
+                  treeStruct.appendChild(listStruct);
+                  document.getElementById("demo").appendChild(treeStruct);
+                  console.log(listStruct);
+                  for (var d in desc) {
+                    for (var e in desc[d]) {
+                      if (!arrayOfChildren.includes(desc[d][e])) {
+                        console.log(desc[d][e]);
+                        var treeStructIn = document.createElement("ul");
+                        var listStructIn = document.createElement("li");
+                        var carrotIn = document.createElement("span");
+
+                        treeStructIn.className = "nested";
+                        carrotIn.className = "caret";
+                        carrotIn.id = desc[d][e];
+                        carrotIn.innerHTML =
+                          '<a href="' + desc[d][e] + '">' + desc[d][e] + "</a>";
+                        listStructIn.appendChild(carrotIn);
+                        treeStructIn.appendChild(listStructIn);
+                        listStruct.appendChild(treeStructIn);
+                        console.log(listStruct);
+                        arrayOfChildren.push(desc[d][e]);
+                      }
+                    }
+                  }
                 }
               }
             }
           }
+          var toggler = document.getElementsByClassName("caret");
+          //var toggler = document.getElementsByTagName("span");
+          for (var k = 0; k < toggler.length; k++) {
+            console.log(toggler[k].innerHTML);
+            toggler[k].addEventListener("click", function (toggler) {
+              var t = toggler;
+              var thisCaretID = t.toElement.id;
+              var thisCaret = document.getElementById(thisCaretID);
+              console.log(thisCaret.id);
+              if (thisCaret.parentElement.querySelector(".nested") === null) {
+                thisCaret.classList.toggle("caret-down");
+              } else {
+                for (var z in thisCaret.parentElement.getElementsByClassName(
+                  "nested"
+                )) {
+                  var nestedCaret = thisCaret.parentElement.getElementsByClassName(
+                    "nested"
+                  )[z];
+                  nestedCaret.classList.toggle("active");
+                }
+
+                thisCaret.classList.toggle("caret-down");
+              }
+              console.log(
+                thisCaret.parentElement.getElementsByClassName("nested")
+              );
+            });
+            console.log("k: " + k);
+            console.log(toggler[k].attributes);
+          }
         }
       };
+
       xhttp.open("GET", "ajax_info.txt", true);
       xhttp.send();
     }
