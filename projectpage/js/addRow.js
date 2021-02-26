@@ -40,6 +40,7 @@ if (bool) {
 //if there are new trees added to sync storage, add them to the page
 
 /* add a new row to the table when the toggle in popup.html is toggled off*/
+
 function addEntry(storageKey) {
   var projTable = document.getElementById("dataTable");
   if (projTable) {
@@ -64,7 +65,11 @@ function addEntry(storageKey) {
 
     // create category text
     var date = document.createTextNode(n);
-    var categoryText = document.createTextNode("searched for trees");
+    var categoryText = document.createTextNode("searched tree");
+    // var categoryText = document.createTextNode(localStorage.getItem("input_category"));
+    // if(!categoryText){
+    //   categoryText == "not category set!";
+    // }
     newCheckEle.type = "checkbox";
     newText.type = "link";
     newTitle.id = storageKey;
@@ -76,14 +81,17 @@ function addEntry(storageKey) {
     newCategory.appendChild(categoryText);
 
     // change innertext to link
-    document.getElementById(storageKey).innerHTML =
+    var null_check = document.getElementById(storageKey)
+    if(null_check){
+       null_check.innerHTML =
       '<form id="' +
       storageKey +
       '" action="search.html"><button type="submit">' +
       storageKey +
       "</button></form>";
-    document.getElementById(storageKey).addEventListener("click", () => {
+       null_check.addEventListener("click", () => {
       chrome.storage.local.set({ projectName: storageKey });
     });
   }
+}
 }

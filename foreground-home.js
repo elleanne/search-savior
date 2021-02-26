@@ -7,9 +7,10 @@ checkKeys();
 var bool = document.getElementById("addR");
 if (bool) {
   bool.addEventListener("click", () => {
-    var projTable = document
-      .getElementById("dataTable")
-      .getElementsByTagName("tbody")[0];
+    var projTable = document.getElementById("dataTable")
+    if(projTable){
+      projTable.getElementsByTagName("tbody")[0];
+    }
     if (projTable.rows[1].getElementsByTagName("input")[1].value !== null) {
       addRow(); // add row to index.html table
       checkKeys(); // add tree to search page

@@ -21,7 +21,7 @@ class TreeNode {
 
 var node = new TreeNode();
 
-// Listen for page loaded: check if tooggle(checkbox) is on or off and save value to chrome.storage.local
+// Listen for page loaded: check if toggle(checkbox) is on or off and save value to chrome.storage.local
 document.addEventListener("DOMContentLoaded", function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
   chrome.storage.local.get("enabled", function (result) {
@@ -35,16 +35,46 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
 // When toggle is enabled and a new tab is 'heard', save tab url to treeArray as a new value or a descendant
 // When toggle is disabled, save the project data structure and the name of the project in chrome.storage
+
+
+// fetch custom name and category from popup form: activated only when save button is pressed
+var bool = document.getElementById("Submit");
+if (bool) {
+  bool.addEventListener("click", save_name);
+}
+function save_name(){
+    var search_name = document.getElementById("name").value;
+    localStorage.setItem('input_name', search_name);
+
+    var category = document.getElementById("category").value;
+    localStorage.setItem('input_category', category);
+}
+
+
+
 chrome.tabs.onActivated.addListener((tab) => {
   chrome.tabs.get(tab.tabId, (current_tab_info) => {
     var checkbox = document.querySelector('input[type="checkbox"]');
     chrome.storage.local.get("enabled", function (result) {
       if (!result.enabled && allNodes.length !== 0) { 
-        // make popup for naming tree or default to treeName
-        treeName = "Search " + i;
-        i++;
+        
+        treeName = localStorage.getItem('input_name');
+        treeCategory = localStorage.getItem('input_category');
+
+                    
+        if(!treeName){
+          treeName = "Search " + i;
+          i++;
+        }
+
+        if(treeCategory == null){
+          treeCategory = "Untitled Category";
+        }
+       
+        
         saveProject(checkbox, allNodes, treeName);
         chrome.storage.local.set({ projectName: treeName });
         allNodes = [];
