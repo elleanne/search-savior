@@ -1,15 +1,19 @@
 console.log("execute fore");
+/*
+foreground.js creates the tree of the search for a specific project in search.html
+*/
+var treeName; // the name of the project to load in search.html
 
-var treeName;
-
-//listen for page loaded: projectName is a variable is saved when project button is clicked in foreground-home
+/*listen for page loaded: projectName is a variable that is saved in chrome.storage.local 
+in background.js OR foreground-home.js, depending on if a new project is saved or a button 
+is clicked saved when project button is clicked in foreground-home*/
 document.addEventListener("DOMContentLoaded", function () {
   chrome.storage.local.get("projectName", function (result) {
     treeName = Object.entries(result)[0][1];
     loadDoc();
   });
 });
-
+// used to get value and descendent of data retrieved from chrome.storage.sync
 class TreeNode {
   constructor(value) {
     this.value = value;
@@ -39,67 +43,65 @@ function getKeys() {
   });
 }
 
-// load search.html page with urls for a particular project
+// load search.html page with urls for a particular project and add event listeners
+// Is this function long and crazy? Yes. But I'm super proud that I figured out how to implement a dynamic tree structure with carets. :crying_laughing_smiley:
+// TODO: One day, this would be beautiful as a recursive function
 function loadDoc() {
-  if (treeName === undefined) {
+  if (treeName === undefined) { // get the value of the last button clicked, OR the value of the last project saved
     chrome.storage.local.get(projectName, function (data) {
       treeName = Object.entries(result)[0][1];
     });
   }
-  chrome.storage.sync.get(treeName, function (data) {
-    var responseText = Object.values(data);
-    var keys = Object.keys(data);
+  chrome.storage.sync.get(treeName, function (data) { // get the data tree of the desired search
+    var responseText = Object.values(data); // values are urls
+    var keys = Object.keys(data); // keys are the names of the projects
 
-    if (treeName !== "z") {
+    if (treeName !== "z") { // z is a variable in storage, but not a tree
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 0) {
-          var arrayOfChildren = [];
+        if (this.readyState == 4 && this.status == 0) { // if the page is ready
+          var arrayOfChildren = []; // used so that if the data structure contains multiple urls that are the same, only add them once
           for (i in keys) {
             for (j in responseText[i]) {
-              console.log(i + " " + j);
-              if (
-                !document.getElementById("demo").innerHTML.includes(keys[i]) &&
-                responseText[i][j].value !== ""
-              ) {
-                var treeHead = responseText[i][j].value;
+              if ( responseText[i][j].value !== "" ) {
+                var treeHead = responseText[i][j].value; // head node of the tree
                 if (!arrayOfChildren.includes(treeHead)) {
                   arrayOfChildren.push(treeHead);
-
                   var desc = responseText[i][j].descendants;
-                  console.log("head: " + treeHead + " , desc: " + desc);
+                  // create head elements to go in page
                   var treeStruct = document.createElement("ul");
                   var listStruct = document.createElement("li");
                   var carrot = document.createElement("span");
-
+                  // save attributes to head elements
                   treeStruct.className = "myUL";
                   carrot.className = "caret";
-                  carrot.id = treeHead;
-
+                  carrot.id = treeHead; 
                   carrot.innerHTML =
                     '<a href="' + treeHead + '">' + treeHead + "</a>";
+                  // add head elements to page
                   listStruct.appendChild(carrot);
                   treeStruct.appendChild(listStruct);
                   document.getElementById("demo").appendChild(treeStruct);
-                  console.log(listStruct);
+                  // for all descendants of the head node:
                   for (var d in desc) {
-                    for (var e in desc[d]) {
+                    for (var e in desc[d]) { // arrays of arrays are saved so we need 2-d array iteration
                       if (!arrayOfChildren.includes(desc[d][e])) {
-                        console.log(desc[d][e]);
+                        // create child elements
                         var treeStructIn = document.createElement("ul");
                         var listStructIn = document.createElement("li");
                         var carrotIn = document.createElement("span");
-
+                        // add attributes to child elements
                         treeStructIn.className = "nested";
                         carrotIn.className = "caret";
                         carrotIn.id = desc[d][e];
                         carrotIn.innerHTML =
                           '<a href="' + desc[d][e] + '">' + desc[d][e] + "</a>";
+                        // add child element to the head element
                         listStructIn.appendChild(carrotIn);
                         treeStructIn.appendChild(listStructIn);
                         listStruct.appendChild(treeStructIn);
-                        console.log(listStruct);
-                        arrayOfChildren.push(desc[d][e]);
+                        // add child to array so we don't add it to the page twice!
+                        arrayOfChildren.push(desc[d][e]); 
                       }
                     }
                   }
@@ -107,41 +109,31 @@ function loadDoc() {
               }
             }
           }
+          // this for loop add an action listener to each span element
           var toggler = document.getElementsByClassName("caret");
-          //var toggler = document.getElementsByTagName("span");
           for (var k = 0; k < toggler.length; k++) {
-            console.log(toggler[k].innerHTML);
+            // listen
             toggler[k].addEventListener("click", function (toggler) {
+              // toggler is a mouse event
               var t = toggler;
-              var thisCaretID = t.toElement.id;
-              var thisCaret = document.getElementById(thisCaretID);
-              console.log(thisCaret.id);
+              var thisCaretID = t.toElement.id; 
+              var thisCaret = document.getElementById(thisCaretID); // gets the ele from the page!
+              // if it doesn't have a parent element, just make it toggle down to show an action happened
               if (thisCaret.parentElement.querySelector(".nested") === null) {
                 thisCaret.classList.toggle("caret-down");
-              } else {
-                for (var z in thisCaret.parentElement.getElementsByClassName(
-                  "nested"
-                )) {
-                  var nestedCaret = thisCaret.parentElement.getElementsByClassName(
-                    "nested"
-                  )[z];
+              } else { /* if it does have a parent element, get all the elements in the parent and set the .toggle to active so they are added to the page */
+                for (var z in thisCaret.parentElement.getElementsByClassName("nested")) {
+                  var nestedCaret = thisCaret.parentElement.getElementsByClassName("nested")[z];
                   nestedCaret.classList.toggle("active");
                 }
-
                 thisCaret.classList.toggle("caret-down");
               }
-              console.log(
-                thisCaret.parentElement.getElementsByClassName("nested")
-              );
             });
-            console.log("k: " + k);
-            console.log(toggler[k].attributes);
           }
         }
       };
-
       xhttp.open("GET", "ajax_info.txt", true);
-      xhttp.send();
+      xhttp.send(); // TODO: this is giving errors. Do we need to remove xhttp all together?
     }
   });
 }

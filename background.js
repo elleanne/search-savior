@@ -11,6 +11,7 @@ var allID = [];
 var allNodes = [];
 var i = 1; 
 
+// used to create a tree struct to save to chrome.storage.sync
 class TreeNode {
   constructor(value) {
     this.value = value;
@@ -19,7 +20,8 @@ class TreeNode {
 }
 
 var node = new TreeNode();
-// Listen for page loaded: check if tooggle(checkbox) is on or off
+
+// Listen for page loaded: check if tooggle(checkbox) is on or off and save value to chrome.storage.local
 document.addEventListener("DOMContentLoaded", function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
   chrome.storage.local.get("enabled", function (result) {
@@ -33,12 +35,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-
+// When toggle is enabled and a new tab is 'heard', save tab url to treeArray as a new value or a descendant
+// When toggle is disabled, save the project data structure and the name of the project in chrome.storage
 chrome.tabs.onActivated.addListener((tab) => {
   chrome.tabs.get(tab.tabId, (current_tab_info) => {
     var checkbox = document.querySelector('input[type="checkbox"]');
     chrome.storage.local.get("enabled", function (result) {
-      if (!result.enabled && allNodes.length !== 0) {
+      if (!result.enabled && allNodes.length !== 0) { 
         // make popup for naming tree or default to treeName
         treeName = "Search " + i;
         i++;
@@ -51,39 +54,37 @@ chrome.tabs.onActivated.addListener((tab) => {
         allID = [];
       }
 
-      if (result.enabled) {
-        var newdata = {
+      if (result.enabled) { 
+        var newdata = { // save data into object
           id: tab.tabId,
           parentId: curr_parentId,
           url: current_tab_info.url,
         };
-
         if (allID !== null) {
           if (allID.includes(tab.tabId)) {
             for (i in allNodes) {
               if (allNodes[i].value === current_tab_info.url) {
                 // TODO: test that descendants are added correctly
-                node = allNodes[i];
+                node = allNodes[i]; // get the nodee that matches the current tab - 
                 break;
               }
             }
             curr_parentId = tab.tabId;
             var tempchild = [];
             for (i in treeArray) {
-              if (treeArray[i].parentId === tab.tabId) {
+              if (treeArray[i].parentId === tab.tabId) { // get all children of the current tab
                 tempchild.push(treeArray[i].url);
               }
             }
             node.descendants.push(tempchild);
-          } else {
+          } else { // if url is new, but not the first url to be visited
             node = new TreeNode(current_tab_info.url);
             curr_parentId = tab.tabId;
             treeArray.push(newdata);
-
             allID.push(tab.tabId);
             allNodes.push(node);
           }
-        } else {
+        } else {// if url is new, and IS the first url to be visited
           node = new TreeNode(current_tab_info.url);
           curr_parentId = tab.tabId;
           treeArray.push(newdata);
@@ -95,6 +96,7 @@ chrome.tabs.onActivated.addListener((tab) => {
   });
 });
 
+// save a project by it's project name set by user, or defualt " search"+int
 function saveProject(onOff, allNodes, treeName) {
   if (!onOff) {
     var treeVar = treeName;
@@ -104,6 +106,7 @@ function saveProject(onOff, allNodes, treeName) {
   }
 }
 
+// get a project by it's key from chrome.storage.sync
 function getProject(treeName) {
   chrome.storage.sync.get(treeName, function (data) {
     var mySet = new Array(data);
@@ -111,19 +114,20 @@ function getProject(treeName) {
   });
 }
 
-var makeNode = (urlName) => {
-  // not used
-  var node1 = new TreeNode();
-  node1.value = urlName;
-  return node1;
-};
+// NOT USING BUT MIGHT?
+// var makeNode = (urlName) => {
+//   // not used
+//   var node1 = new TreeNode();
+//   node1.value = urlName;
+//   return node1;
+// };
 
-var addDesc = (node2, desc) => {
-  // not used
-  if (node2.descendants !== undefined) {
-    var tempDesc = node2.descendants;
-    tempDesc.push(desc);
-    node2.descendants = tempDesc;
-  } else node2.descendants.push(desc);
-  return node2;
-};
+// var addDesc = (node2, desc) => {
+//   // not used
+//   if (node2.descendants !== undefined) {
+//     var tempDesc = node2.descendants;
+//     tempDesc.push(desc);
+//     node2.descendants = tempDesc;
+//   } else node2.descendants.push(desc);
+//   return node2;
+// };
