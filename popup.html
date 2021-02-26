@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
+  <!-- Authors: MLH POD 2.1.3 Goofy Goffy {Elizabeth Crouther, Sakshi Gupta, Myat Thu Ko} -->
   <head>
     <link rel="stylesheet" href="slider.css" />
+    <link rel = "stylesheet" href = "button.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Search Savior Chrome Extension</title>
@@ -21,14 +23,24 @@
       </label>
       <br />
       <br />
+
+      <!-- add additional details (optional) -->
+      <!-- <form> -->
+        <label for="name"></label><br>
+        <input type="text" id="name" name="name" placeholder="Search Name(optional)"></input><br>
+        <label for="category"></label><br>
+        <input type="text" id="category" name="category" placeholder="Category(optional)"></input><br>
+        <br><input  id="Submit" class = " button button_save" type = "button" value="Save"></input>
+    <!-- </form> -->
+    <!-- add additional details (optional) -->
+      <br>
       <label style="font-family: 'Helvetica'">
         <a href="projectpage/index.html" target="_blank" style="color: black"
           >Projects</a>
       </label>
     </div>
+    
+    <script src="background.js"></script> 
   </body>
 
-  <script src="background.js"></script>
-
 </html>
-

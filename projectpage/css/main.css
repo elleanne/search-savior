@@ -2629,3 +2629,11 @@ ul, #myUL {
   .active {
     display: block;
   }
+
+#dataTable th{
+      text-align: center;
+  }
+
+.container {
+    display: flex;
+}

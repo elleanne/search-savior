@@ -1,56 +1,98 @@
-function addRow(tableID) {
-
-    var table = document.getElementById(tableID);
-
-    var rowCount = table.rows.length;
-    var row = table.insertRow(rowCount);
-
-    var cell1 = row.insertCell(0);
-    var element1 = document.createElement("input");
-    element1.type = "checkbox";
-    element1.name="chkbox[]";
-    cell1.appendChild(element1);
-
-    // var cell2 = row.insertCell(1);
-
-    var cell3 = row.insertCell(1);
-    var element2 = document.createElement("input");
-    element2.type = "text";
-    element2.name = "txtbox[]";
-    cell3.appendChild(element2);
-
-    var cell4 = row.insertCell(2);
-    var element3 = document.createElement("input");
-    element3.type = "date";
-    element3.name = "txtbox[]";
-    cell4.appendChild(element3);
-
-    var cell5 = row.insertCell(3);
-    var element4 = document.createElement("input");
-    element4.type = "text";
-    element4.name = "txtbox[]";
-    cell5.appendChild(element4);
-
-
+// Authors: MLH POD 2.1.3 Goofy Goffy {Elizabeth Crouther, Sakshi Gupta, Myat Thu Ko}
+// listener for if we decide to add a feature
+var bool = document.getElementById("addR");
+if (bool) {
+  bool.addEventListener("click", addRow);
 }
 
-function deleteRow(tableID) {
-try {
-var table = document.getElementById(tableID);
-var rowCount = table.rows.length;
+// Not using currently! If a new project was made on the index page, add it to the table
+// function addRow() {
+//   var table = document.getElementById("dataTable");
+//   var textName = table.rows[1].getElementsByTagName("input")[1].value;
+//   var setDate = table.rows[1].getElementsByTagName("input")[2].value;
+//   var textCategory = table.rows[1].getElementsByTagName("input")[3].value;
 
-for(var i=0; i<rowCount; i++) {
-var row = table.rows[i];
-var chkbox = row.cells[0].childNodes[0];
-if(null != chkbox && true == chkbox.checked) {
-    table.deleteRow(i);
-    rowCount--;
-    i--;
-}
+//   var rowCount = table.rows.length;
+//   var row = table.insertRow(rowCount);
 
+//   var cell1 = row.insertCell(0);
+//   var element1 = document.createElement("input");
+//   element1.type = "checkbox";
+//   element1.name = "chkbox[]";
+//   cell1.appendChild(element1);
 
-}
-}catch(e) {
-alert(e);
-}
+//   var cell3 = row.insertCell(1);
+//   cell3.id = textName;
+//   cell3.innerHTML = "<a href=search.html>" + textName + "</a>";
+
+//   var cell4 = row.insertCell(2);
+//   var element3 = document.createElement("input");
+//   element3.type = "date";
+//   element3.name = "txtbox[]";
+//   cell4.innerHTML = setDate || element3;
+
+//   var cell5 = row.insertCell(3);
+//   var element4 = document.createElement("input");
+//   element4.type = "text";
+//   element4.name = "txtbox[]";
+//   cell5.innerHTML = textCategory || element4;
+// }
+
+//if there are new trees added to sync storage, add them to the page
+
+/* add a new row to the table when the toggle in popup.html is toggled off*/
+
+function addEntry(storageKey) {
+  var projTable = document.getElementById("dataTable");
+  if (projTable) {
+    projTable.getElementsByTagName("tbody")[0];
+
+    // create rows and cells
+
+    var newRow = projTable.insertRow();
+    var newCheck = newRow.insertCell();
+    var newTitle = newRow.insertCell();
+    var newDate = newRow.insertCell();
+    var newCategory = newRow.insertCell();
+
+    // create elements to add to table
+    var newText = document.createTextNode(storageKey);
+    var newCheckEle = document.createElement("input");
+
+    // set current date
+    var d = new Date();
+    var n = d.getDate();
+    n += "-" + d.getMonth() + "-" + d.getFullYear();
+
+    // create category text
+    var date = document.createTextNode(n);
+    var categoryText = document.createTextNode("searched tree");
+    // var categoryText = document.createTextNode(localStorage.getItem("input_category"));
+    // if(!categoryText){
+    //   categoryText == "not category set!";
+    // }
+    newCheckEle.type = "checkbox";
+    newText.type = "link";
+    newTitle.id = storageKey;
+
+    // append nodes to table
+    newCheck.appendChild(newCheckEle);
+    newTitle.appendChild(newText);
+    newDate.appendChild(date);
+    newCategory.appendChild(categoryText);
+
+    // change innertext to link
+    var null_check = document.getElementById(storageKey);
+    if (null_check) {
+      null_check.innerHTML =
+        '<form id="' +
+        storageKey +
+        '" action="search.html"><button type="submit">' +
+        storageKey +
+        "</button></form>";
+      null_check.addEventListener("click", () => {
+        chrome.storage.local.set({ projectName: storageKey });
+      });
+    }
+  }
 }

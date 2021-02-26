@@ -1,4 +1,5 @@
-// The follow 3 lines are for testing purposes only. 
+// Authors: MLH POD 2.1.3 Goofy Goffy {Elizabeth Crouther, Sakshi Gupta, Myat Thu Ko}
+// The follow 3 lines are for testing purposes only.
 /*
 const chrome = require('sinon-chrome'); 
 window.chrome = chrome; 
@@ -9,34 +10,9 @@ var treeArray = [];
 var curr_parentId = null;
 var allID = [];
 var allNodes = [];
-
-// The following is for testing purpose only.
-/*
-class TreeNode {
-  constructor(value) {
-    this.value = value;
-    this.descendants = [];
-  }
-}
-
-exports.makeNode = (urlName) => {
-  var node1 = new TreeNode();
-  node1.value = urlName;
-  return node1;
-}
-
-exports.addDesc = (node2, desc) => {
-  if(node2.descendants !== undefined) {
-    var tempDesc = node2.descendants;
-    tempDesc.push(desc);
-    node2.descendants = tempDesc;
-  } else node2.descendants.push(desc);
-  return node2;
-}
-
-var node = new TreeNode();
-*/
-
+var i = 1;
+var nameIsSaved2 = false;
+// used to create a tree struct to save to chrome.storage.sync
 class TreeNode {
   constructor(value) {
     this.value = value;
@@ -45,137 +21,171 @@ class TreeNode {
 }
 
 var node = new TreeNode();
+
+// Listen for page loaded: check if toggle(checkbox) is on or off and save value to chrome.storage.local
 document.addEventListener("DOMContentLoaded", function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
   chrome.storage.local.get("enabled", function (result) {
-    
-//     Testing purpose only 
-//     console.log("initial status: " + result.enabled);
-    
     if (result.enabled !== null && checkbox !== null) {
       checkbox.checked = result.enabled;
     }
   });
-
   if (checkbox) {
     checkbox.addEventListener("click", function () {
-// The following is for testing purpose only. 
-      /*
-      console.log("current status: " + checkbox.checked);
-      chrome.storage.local.set({ enabled: checkbox.checked }, function () {
-        console.log("confirmed"); 
-        */
-      chrome.storage.local.set({ enabled: checkbox.checked }, function () {
-        //console.log("confirmed");
-      });
+      chrome.storage.local.set({ enabled: checkbox.checked }, function () {});
     });
+  }
+  // fetch custom name and category from popup form: activated only when save button is pressed
+  var bool = document.getElementById("Submit");
+  if (bool) {
+    bool.addEventListener("click", save_name);
+  }
+  function save_name() {
+    var search_name = document.getElementById("name").value;
+
+    localStorage.setItem("input_name", search_name);
+    console.log(localStorage.getItem("input_name"));
+    var category = document.getElementById("category").value;
+    localStorage.setItem("input_category", category);
+    nameIsSaved = true;
+    chrome.storage.local.set({ nameIsSaved: true });
   }
 });
 
-// need to fiugure out how to save the previos state
+// When toggle is enabled and a new tab is 'heard', save tab url to treeArray as a new value or a descendant
+// When toggle is disabled, save the project data structure and the name of the project in chrome.storage
+
+// var bool = document.getElementById("Submit");
+// if (bool) {
+//   bool.addEventListener("click", save_name);
+// }
+// function save_name() {
+//   var search_name = document.getElementById("name").value;
+
+//   localStorage.setItem("input_name", search_name);
+
+//   var category = document.getElementById("category").value;
+//   localStorage.setItem("input_category", category);
+// }
+
 chrome.tabs.onActivated.addListener((tab) => {
   chrome.tabs.get(tab.tabId, (current_tab_info) => {
     var checkbox = document.querySelector('input[type="checkbox"]');
     chrome.storage.local.get("enabled", function (result) {
-      if (!result.enabled && allNodes !== null) {
-        saveProject(checkbox, allNodes, "tree1");
-        getProject("tree1"); //****  need to make this work for a user-input project name ***
+      var treeName;
+      if (!result.enabled && allNodes.length !== 0) {
+        var searching = document.getElementById("name");
+        console.log(nameIsSaved2);
+        chrome.storage.local.get("nameIsSaved", (TFBOOL) => {
+          nameIsSaved2 = TFBOOL.nameIsSaved;
 
-        chrome.runtime.sendMessage({ greeting: "saved tree" });
+          if (!nameIsSaved2) {
+            treeName = "Search " + i;
+            i++;
+            localStorage.setItem("input_name", treeName);
+            console.log(treeName);
+          } else {
+            treeName = localStorage.getItem("input_name");
+            console.log(treeName);
+          }
+
+          console.log(treeName);
+          if (document.getElementById("category") === null) {
+            treeCategory = "Untitled Category";
+            localStorage.setItem("input_category", treeCategory);
+          } else {
+            treeCategory = localStorage.getItem("input_category");
+          }
+
+          saveProject(checkbox, allNodes, treeName);
+          chrome.storage.local.set({ projectName: treeName });
+          allNodes = [];
+          tFBool = true; // reset all values
+          treeArray = [];
+          curr_parentId = null;
+          allID = [];
+        });
       }
 
-      //console.log("initial status: " + result.enabled);
       if (result.enabled) {
-        //console.log(current_tab_info.url);
+        chrome.storage.local.set({ nameIsSaved: false });
         var newdata = {
+          // save data into object
           id: tab.tabId,
           parentId: curr_parentId,
           url: current_tab_info.url,
         };
-
-        //console.log(allID + " array");
         if (allID !== null) {
           if (allID.includes(tab.tabId)) {
             for (i in allNodes) {
               if (allNodes[i].value === current_tab_info.url) {
                 // TODO: test that descendants are added correctly
-                node = allNodes[i];
+                node = allNodes[i]; // get the nodee that matches the current tab -
                 break;
               }
             }
-            //console.log(node);
-            //console.log("already there");
             curr_parentId = tab.tabId;
             var tempchild = [];
             for (i in treeArray) {
-              //console.log(treeArray[i].parentId);
               if (treeArray[i].parentId === tab.tabId) {
+                // get all children of the current tab
                 tempchild.push(treeArray[i].url);
               }
             }
-            //console.log("tempchild" + tempchild);
             node.descendants.push(tempchild);
-            //console.log(node);
           } else {
+            // if url is new, but not the first url to be visited
             node = new TreeNode(current_tab_info.url);
             curr_parentId = tab.tabId;
-            //console.log(newdata);
             treeArray.push(newdata);
-            //console.log(treeArray);
             allID.push(tab.tabId);
             allNodes.push(node);
-
-            //console.log(node);
           }
         } else {
+          // if url is new, and IS the first url to be visited
           node = new TreeNode(current_tab_info.url);
           curr_parentId = tab.tabId;
-          //console.log(newdata);
           treeArray.push(newdata);
-          // console.log(treeArray);
           allID.push(tab.tabId);
           allNodes.push(node);
-          //node.descendants.push(newdata.url);
-          // console.log(node);
         }
       }
     });
   });
 });
 
-function saveProject(onOff, allNodes) {
+// save a project by it's project name set by user, or defualt " search"+int
+function saveProject(onOff, allNodes, treeName) {
   if (!onOff) {
-    chrome.storage.sync.set({ tree: allNodes }); // TODO: need to make sync.get take an input, not hardcode tree in
-    var tFBool = true; // reset all values
-    var treeArray = [];
-    var curr_parentId = null;
-    var allID = [];
-    var allNodes = [];
+    var treeVar = treeName;
+    var obj = {};
+    obj[treeVar] = allNodes;
+    chrome.storage.sync.set(obj);
   }
-  return;
 }
 
-function getProject() {
-  chrome.storage.sync.get("tree", function (data) {
-    // TODO: need to make sync.get take an input, not hardcode tree in
-    //console.log(data);
+// get a project by it's key from chrome.storage.sync
+function getProject(treeName) {
+  chrome.storage.sync.get(treeName, function (data) {
     var mySet = new Array(data);
-    console.log(mySet);
     return mySet;
   });
 }
 
-var makeNode = (urlName) => { // not used
-  var node1 = new TreeNode();
-  node1.value = urlName;
-  return node1;
-};
+// NOT USING BUT MIGHT?
+// var makeNode = (urlName) => {
+//   // not used
+//   var node1 = new TreeNode();
+//   node1.value = urlName;
+//   return node1;
+// };
 
-var addDesc = (node2, desc) => { // not used
-  if (node2.descendants !== undefined) {
-    var tempDesc = node2.descendants;
-    tempDesc.push(desc);
-    node2.descendants = tempDesc;
-  } else node2.descendants.push(desc);
-  return node2;
-};
+// var addDesc = (node2, desc) => {
+//   // not used
+//   if (node2.descendants !== undefined) {
+//     var tempDesc = node2.descendants;
+//     tempDesc.push(desc);
+//     node2.descendants = tempDesc;
+//   } else node2.descendants.push(desc);
+//   return node2;
+// };
