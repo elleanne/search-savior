@@ -11,7 +11,7 @@ var curr_parentId = null;
 var allID = [];
 var allNodes = [];
 var i = 1;
-
+var nameIsSaved2 = false;
 // used to create a tree struct to save to chrome.storage.sync
 class TreeNode {
   constructor(value) {
@@ -35,39 +35,71 @@ document.addEventListener("DOMContentLoaded", function () {
       chrome.storage.local.set({ enabled: checkbox.checked }, function () {});
     });
   }
+  // fetch custom name and category from popup form: activated only when save button is pressed
+  var bool = document.getElementById("Submit");
+      if (bool) {
+        bool.addEventListener("click", save_name);
+      }
+      function save_name() {
+        var search_name = document.getElementById("name").value;
+
+        localStorage.setItem("input_name", search_name);
+        console.log(localStorage.getItem("input_name"))
+        var category = document.getElementById("category").value;
+        localStorage.setItem("input_category", category);
+        nameIsSaved = true;
+        chrome.storage.local.set({nameIsSaved: true});
+      }
 });
 
 // When toggle is enabled and a new tab is 'heard', save tab url to treeArray as a new value or a descendant
 // When toggle is disabled, save the project data structure and the name of the project in chrome.storage
 
-// fetch custom name and category from popup form: activated only when save button is pressed
-var bool = document.getElementById("Submit");
-if (bool) {
-  bool.addEventListener("click", save_name);
-}
-function save_name() {
-  var search_name = document.getElementById("name").value;
-  localStorage.setItem("input_name", search_name);
 
-  var category = document.getElementById("category").value;
-  localStorage.setItem("input_category", category);
-}
+// var bool = document.getElementById("Submit");
+// if (bool) {
+//   bool.addEventListener("click", save_name);
+// }
+// function save_name() {
+//   var search_name = document.getElementById("name").value;
+
+//   localStorage.setItem("input_name", search_name);
+
+//   var category = document.getElementById("category").value;
+//   localStorage.setItem("input_category", category);
+// }
 
 chrome.tabs.onActivated.addListener((tab) => {
+
   chrome.tabs.get(tab.tabId, (current_tab_info) => {
     var checkbox = document.querySelector('input[type="checkbox"]');
     chrome.storage.local.get("enabled", function (result) {
+      var treeName;
       if (!result.enabled && allNodes.length !== 0) {
-        treeName = localStorage.getItem("input_name");
-        treeCategory = localStorage.getItem("input_category");
-
-        if (!treeName) {
-          treeName = "Search " + i;
-          i++;
-        }
-
-        if (treeCategory == null) {
+        var searching = document.getElementById("name");
+        console.log(nameIsSaved2);
+        chrome.storage.local.get("nameIsSaved", (TFBOOL) => {
+          nameIsSaved2 = TFBOOL.nameIsSaved;
+          
+          
+          if(!nameIsSaved2) {
+            treeName = "Search " + i;
+            i++;
+            localStorage.setItem("input_name", treeName);
+            console.log(treeName);
+          } else {
+            treeName = localStorage.getItem("input_name");
+            console.log(treeName);
+          }
+        
+        
+        
+        console.log(treeName);
+        if (document.getElementById("category") === null) {
           treeCategory = "Untitled Category";
+          localStorage.setItem("input_category", treeCategory);
+        } else {
+          treeCategory = localStorage.getItem("input_category");
         }
 
         saveProject(checkbox, allNodes, treeName);
@@ -77,9 +109,11 @@ chrome.tabs.onActivated.addListener((tab) => {
         treeArray = [];
         curr_parentId = null;
         allID = [];
+      });
       }
 
       if (result.enabled) {
+        chrome.storage.local.set({nameIsSaved: false});
         var newdata = {
           // save data into object
           id: tab.tabId,

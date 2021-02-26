@@ -24,12 +24,12 @@ class TreeNode {
 
 //refresh page
 var counter = 1;
-var auto_refresh = setInterval(function () {
-  var newcontent =
-    "<h4>" + localStorage.getItem("input_category").toUpperCase() + "</h4>";
-  $("#divID").html(newcontent);
-  counter++;
-}, 1000);
+// var auto_refresh = setInterval(function () {
+//   var newcontent =
+//     "<h4>" + localStorage.getItem("input_category").toUpperCase() + "</h4>";
+//   $("#divID").html(newcontent);
+//   counter++;
+// }, 1000);
 
 // NOT USING now, might need if we make a page with all urls
 // get all keys in storage.sync to put in search.html
@@ -66,6 +66,7 @@ function loadDoc() {
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 0) {
           // if the page is ready
+          $("#search_page_title").html(treeName.toUpperCase());
           var arrayOfChildren = []; // used so that if the data structure contains multiple urls that are the same, only add them once
           for (i in keys) {
             for (j in responseText[i]) {
