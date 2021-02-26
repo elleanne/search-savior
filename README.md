@@ -31,3 +31,10 @@ We used HTML, CSS and JavaScript for the landing page for our webpage and Chrome
 ## What's next for SearchSavior
 - Adding new features such as saving the tabs every time when the user switches tabs
 - Displaying a proper descendent structure
+
+## How to use it (Guide)
+- Click "Google Chrome Extension Icon" 
+- Select **_"Manage Extensions"_**, this will take you to [Chrome Extensions](chrome://extensions/)
+- Make sure **_"Developer Mode"_** is on to test the extension 
+- On the left top corner, click **_"Load unpacked"_** to select the extension project folder
+- Select the folder then start tracking...
