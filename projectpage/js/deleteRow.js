@@ -1,6 +1,6 @@
 /* delete a project from the table in index.html AND from chrome.storage.sync
  */
-
+// Authors: MLH POD 2.1.3 Goofy Goffy {Elizabeth Crouther, Sakshi Gupta, Myat Thu Ko}
 // listen for delete button clicked
 var bool = document.getElementById("deleteR");
 if (bool) {
@@ -18,8 +18,7 @@ function deleteRow() {
       var chkbox = row.cells[0].childNodes[0]; // only delete project that is checked
       if (null != chkbox && true == chkbox.checked) {
         // delete from storage
-        var v1 = table.rows[i]
-          .getElementsByTagName("form")[0].id;
+        var v1 = table.rows[i].getElementsByTagName("form")[0].id;
         // delete from storage
         chrome.storage.sync.get(v1, function (data) {
           chrome.storage.sync.remove(v1);

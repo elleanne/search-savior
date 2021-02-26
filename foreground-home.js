@@ -1,3 +1,4 @@
+// Authors: MLH POD 2.1.3 Goofy Goffy {Elizabeth Crouther, Sakshi Gupta, Myat Thu Ko}
 console.log("execute foreground.home");
 
 checkKeys();
@@ -7,8 +8,8 @@ checkKeys();
 var bool = document.getElementById("addR");
 if (bool) {
   bool.addEventListener("click", () => {
-    var projTable = document.getElementById("dataTable")
-    if(projTable){
+    var projTable = document.getElementById("dataTable");
+    if (projTable) {
       projTable.getElementsByTagName("tbody")[0];
     }
     if (projTable.rows[1].getElementsByTagName("input")[1].value !== null) {

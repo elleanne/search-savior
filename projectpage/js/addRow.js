@@ -1,3 +1,4 @@
+// Authors: MLH POD 2.1.3 Goofy Goffy {Elizabeth Crouther, Sakshi Gupta, Myat Thu Ko}
 // listener for if we decide to add a feature
 var bool = document.getElementById("addR");
 if (bool) {
@@ -81,17 +82,17 @@ function addEntry(storageKey) {
     newCategory.appendChild(categoryText);
 
     // change innertext to link
-    var null_check = document.getElementById(storageKey)
-    if(null_check){
-       null_check.innerHTML =
-      '<form id="' +
-      storageKey +
-      '" action="search.html"><button type="submit">' +
-      storageKey +
-      "</button></form>";
-       null_check.addEventListener("click", () => {
-      chrome.storage.local.set({ projectName: storageKey });
-    });
+    var null_check = document.getElementById(storageKey);
+    if (null_check) {
+      null_check.innerHTML =
+        '<form id="' +
+        storageKey +
+        '" action="search.html"><button type="submit">' +
+        storageKey +
+        "</button></form>";
+      null_check.addEventListener("click", () => {
+        chrome.storage.local.set({ projectName: storageKey });
+      });
+    }
   }
-}
 }
