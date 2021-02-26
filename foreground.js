@@ -24,7 +24,7 @@ class TreeNode {
 //refresh page
 var counter = 1;
 var auto_refresh = setInterval(function () {
-  var newcontent = " <h4>Your Search Tree</h4>";
+  var newcontent = "<h4>"+localStorage.getItem("input_category").toUpperCase()+"</h4>";;
   $("#divID").html(newcontent);
   counter++;
 }, 1000);

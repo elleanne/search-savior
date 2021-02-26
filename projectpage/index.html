@@ -89,7 +89,7 @@
         <div id="main" class="s-content__main large-8 column">
           <article class="entry">
             <header class="entry__header">
-              <button id="addR">Add Row</button>
+              <button id="renameR">Rename</button>
               <button id="deleteR">Delete Row</button>
 
               <div style="overflow-x:auto">
@@ -110,11 +110,10 @@
         <div id="sidebar" class="s-content__sidebar large-4 column">
           <div class="widget widget--search">
             <h3 class="h6">Search</h3>
-            <form action="#">
-              <input type="text" value="Search here..." onblur="if(this.value == '') { this.value = 'Search here...'; }"
-                onfocus="if (this.value == 'Search here...') { this.value = ''; }" class="text-search" />
-              <input type="submit" value="" class="submit-search" />
-            </form>
+            <form>
+              <input id="search_input" type="search" placeholder="Search here..." class="text-search" /></input>
+              <input id="search_icon" type class="submit-search"/></input>
+              </form>
           </div>
         </div>
         <!-- end sidebar -->
@@ -205,8 +204,9 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/addRow.js"></script>
+    <script src ="js/search.js"></script>
+    <script src = "js/rename.js"></script>
     <script src="js/deleteRow.js"></script>
-    <script src="js/passID.js"></script>
     <script src="/foreground-home.js"></script>
   </body>
 

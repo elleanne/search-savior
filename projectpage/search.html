@@ -88,7 +88,7 @@
       <div class="row">
         <div id="main" class="s-content__main large-8 column">
           <section class="page-content">
-            <h2 class="page-content__title h1">Search 1.</h2>
+            <h2 id="search_page_title" class="page-content__title h1"><p><script src ="js/page_title.js"></script></p></h2>
 
             <div id="divID">
               <!-- <h4>Your Search Tree</h4>
@@ -123,20 +123,20 @@
     </div>
     <!-- end content-wrap -->
 
-    <!-- Footer
+     <!-- Footer
     ================================================== -->
     <footer class="s-footer">
       <div class="row s-footer__top">
         <div class="column">
           <ul class="s-footer__social">
             <li>
-              <a href="https://github.com/eliboss/search-savior" target="_blank">
+              <a href="https://github.com/eliboss/search-savior" target="_blank" title="view source code">
                 <img src="https://img.icons8.com/ios-filled/48/000000/github.png" alt="GitHub" />
               </a>
             </li>
             <li>
-              <a href="https://goofy-goofy.github.io/" target="_blank">
-                <img src="https://img.icons8.com/ios-filled/48/000000/domain.png" / alt="Website">
+              <a href="https://goofy-goofy.github.io/" target="_blank" title="view organisation">
+                <img src="https://img.icons8.com/ios-filled/48/000000/domain.png" alt="Website" />
               </a>
             </li>
           </ul>
@@ -180,8 +180,11 @@
           </div>
         </div>
 
-        <div class="ss-copyright">
-          <span>© Copyright Search Savior 2021</span>
+        <div id="copyright" class="ss-copyright">
+          <span>© Copyright
+            <a href="https://github.com/eliboss/search-savior">Search Savior</a>
+            <script src="js/year.js"></script>
+          </span>
         </div>
       </div>
       <!-- end footer__bottom -->
@@ -196,7 +199,7 @@
       <!-- end ss-go-top -->
     </footer>
     <!-- end Footer-->
-
+    
     <!-- Java Script
     ================================================== -->
     <script src="js/jquery-3.2.1.min.js"></script>
