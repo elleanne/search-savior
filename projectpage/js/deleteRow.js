@@ -1,10 +1,12 @@
 /* delete a project from the table in index.html AND from chrome.storage.sync
  */
-// listen for button pressed
+
+// listen for delete button clicked
 var bool = document.getElementById("deleteR");
 if (bool) {
   bool.addEventListener("click", deleteRow);
 }
+
 // When delete button pressed in index.html, delete row in table and data in storage.sync
 function deleteRow() {
   try {
@@ -17,8 +19,7 @@ function deleteRow() {
       if (null != chkbox && true == chkbox.checked) {
         // delete from storage
         var v1 = table.rows[i]
-          .getElementsByTagName("form")[0]
-          .innerText;
+          .getElementsByTagName("form")[0].id;
         // delete from storage
         chrome.storage.sync.get(v1, function (data) {
           chrome.storage.sync.remove(v1);
