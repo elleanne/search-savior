@@ -114,7 +114,7 @@ If you want to access your past searches
 - Git commands (both remotely and locally)
 
 ## Have Feature Requests or Want to Contribute?
- Refer to the [CONTRIBUTION.md]() for more details.
+ Refer to the [CONTRIBUTION.md](https://github.com/eliboss/search-savior/blob/main/CONTRIBUTION.md) for more details.
  
 ## Found a Bug? 🐞
- Refer to the [CONTRIBUTION.md]() for more details.
+ Refer to the [CONTRIBUTION.md](https://github.com/eliboss/search-savior/blob/main/CONTRIBUTION.md) for more details.
