@@ -43,56 +43,61 @@ if (bool) {
 /* add a new row to the table when the toggle in popup.html is toggled off*/
 
 function addEntry(storageKey) {
-  var projTable = document.getElementById("dataTable");
-  if (projTable) {
-    projTable.getElementsByTagName("tbody")[0];
-
-    // create rows and cells
-
-    var newRow = projTable.insertRow();
-    var newCheck = newRow.insertCell();
-    var newTitle = newRow.insertCell();
-    var newDate = newRow.insertCell();
-    var newCategory = newRow.insertCell();
-
-    // create elements to add to table
-    var newText = document.createTextNode(storageKey);
-    var newCheckEle = document.createElement("input");
-
-    // set current date
-    var d = new Date();
-    var n = d.getDate();
-    n += "-" + d.getMonth() + "-" + d.getFullYear();
-
-    // create category text
-    var date = document.createTextNode(n);
-    var categoryText = document.createTextNode("searched tree");
-    // var categoryText = document.createTextNode(localStorage.getItem("input_category"));
-    // if(!categoryText){
-    //   categoryText == "not category set!";
-    // }
-    newCheckEle.type = "checkbox";
-    newText.type = "link";
-    newTitle.id = storageKey;
-
-    // append nodes to table
-    newCheck.appendChild(newCheckEle);
-    newTitle.appendChild(newText);
-    newDate.appendChild(date);
-    newCategory.appendChild(categoryText);
-
-    // change innertext to link
-    var null_check = document.getElementById(storageKey);
-    if (null_check) {
-      null_check.innerHTML =
-        '<form id="' +
-        storageKey +
-        '" action="search.html"><button type="submit">' +
-        storageKey +
-        "</button></form>";
-      null_check.addEventListener("click", () => {
-        chrome.storage.local.set({ projectName: storageKey });
-      });
+  let n;
+  console.log("storagekey=" + storageKey);
+  if (storageKey.startsWith("&&date")) {console.log("c'est une date" + storageKey);return;} // if it's a date object, don't make an entry out of it
+  else{
+    //set date of the search
+    chrome.storage.sync.get("&&date-"+storageKey,function(result){
+      n = result["&&date-"+storageKey];
+      var projTable = document.getElementById("dataTable");
+      if (projTable) {
+        projTable.getElementsByTagName("tbody")[0];
+    
+        // create rows and cells
+    
+        var newRow = projTable.insertRow();
+        var newCheck = newRow.insertCell();
+        var newTitle = newRow.insertCell();
+        var newDate = newRow.insertCell();
+        var newCategory = newRow.insertCell();
+    
+        // create elements to add to table
+        var newText = document.createTextNode(storageKey);
+        var newCheckEle = document.createElement("input");
+    
+        // create category text
+        console.log("n=" + n);
+        var date = document.createTextNode(n);
+        var categoryText = document.createTextNode("searched tree");
+        // var categoryText = document.createTextNode(localStorage.getItem("input_category"));
+        // if(!categoryText){
+        //   categoryText == "not category set!";
+        // }
+        newCheckEle.type = "checkbox";
+        newText.type = "link";
+        newTitle.id = storageKey;
+    
+        // append nodes to table
+        newCheck.appendChild(newCheckEle);
+        newTitle.appendChild(newText);
+        newDate.appendChild(date);
+        newCategory.appendChild(categoryText);
+    
+        // change innertext to link
+        var null_check = document.getElementById(storageKey);
+        if (null_check) {
+          null_check.innerHTML =
+            '<form id="' +
+            storageKey +
+            '" action="search.html"><button type="submit">' +
+            storageKey +
+            "</button></form>";
+          null_check.addEventListener("click", () => {
+            chrome.storage.local.set({ projectName: storageKey });
+          });
+        }
+      }
     }
-  }
+  )}
 }
