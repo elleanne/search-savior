@@ -7,7 +7,7 @@
 
 3. [search.html](https://github.com/eliboss/search-savior/blob/main/projectpage/search.html): It is a dynamic HTML page that contains all the searches made when the chrome extension is toggled on. It contains the links to all the searches in the order of search made.
 
-4. [popup.html](https://github.com/eliboss/search-savior/blob/main/popup.html): It is the popup for the chrome extension. It contains an `on/off toggle button to activate and deactivate the chrome extension. It contains two form elements: `name` - for entering the name of the search and `category` -  for entering a category to the search for handy use. It also has a `SAVE` button to save a search, a search will only be saved when it has a valid name. Clicking the `SAVE` button is important to ensure that your searches are saved. It also contains the link to the `projects` i.e. the list of personal searches. 
+4. [popup.html](https://github.com/eliboss/search-savior/blob/main/popup.html): It is the popup for the chrome extension. It contains an `on/off` toggle button to activate and deactivate the chrome extension. It contains two form elements: `name` - for entering the name of the search and `category` -  for entering a category to the search for handy use. It also has a `SAVE` button to save a search, a search will only be saved when it has a valid name. Clicking the `SAVE` button is important to ensure that your searches are saved. It also contains the link to the `projects` i.e. the list of personal searches. 
 
 ## Javascript Files
 
