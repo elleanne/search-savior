@@ -165,27 +165,30 @@ function loadDoc() {
             toggler[k].addEventListener("click", function (toggler) {
               // toggler is a mouse event
               var t = toggler;
-              var thisCaretID = t.toElement.id;
-              var thisCaret = document.getElementById(thisCaretID); // gets the ele from the page!
-              // if it doesn't have a parent element, just make it toggle down to show an action happened
-              if (thisCaret.parentElement.querySelector(".nested") === null) {
-                thisCaret.classList.toggle("caret-down");
-              } else {
-                /* if it does have a parent element, get all the elements in the parent and set the .toggle to active so they are added to the page */
-                for (var z in thisCaret.parentElement.getElementsByClassName(
-                  "nested"
-                )) {
-                  console.log(
-                    thisCaret.parentElement.getElementsByClassName("nested")
-                      .length
-                  );
-                  var nestedCaret = thisCaret.parentElement.getElementsByClassName(
+
+              if(t){
+                var thisCaretID = t.toElement.id;
+                var thisCaret = document.getElementById(thisCaretID); // gets the ele from the page!
+                // if it doesn't have a parent element, just make it toggle down to show an action happened
+                if (thisCaret.parentElement.querySelector(".nested") === null) {
+                  thisCaret.classList.toggle("caret-down");
+                } else {
+                  /* if it does have a parent element, get all the elements in the parent and set the .toggle to active so they are added to the page */
+                  for (var z in thisCaret.parentElement.getElementsByClassName(
                     "nested"
-                  )[z];
-                  console.log(nestedCaret);
-                  nestedCaret.classList.toggle("active");
+                  )) {
+                    console.log(
+                      thisCaret.parentElement.getElementsByClassName("nested")
+                        .length
+                    );
+                    var nestedCaret = thisCaret.parentElement.getElementsByClassName(
+                      "nested"
+                    )[z];
+                    console.log(nestedCaret);
+                    nestedCaret.classList.toggle("active");
+                  }
+                  thisCaret.classList.toggle("caret-down");
                 }
-                thisCaret.classList.toggle("caret-down");
               }
             });
           }
