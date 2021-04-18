@@ -1998,8 +1998,69 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     -webkit-transform: translate3d(0, -50%, 0);
     transform: translate3d(0, -50%, 0);
     position: absolute;
-    top: 50%;
-    right: 2rem;
+    top: 75px;
+    right: 30px;
+} 
+
+@media screen and (max-width: 600px) {
+    .widget--search .submit-search {
+        background-color: transparent !important;
+        background-image: url(../images/icons/icon-search.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border: none;
+        cursor: pointer;
+        width: 2rem;
+        height: 1.5rem;
+        min-height: 2rem;
+        padding: 0;
+        margin: 0;
+        -webkit-transform: translate3d(0, -50%, 0);
+        transform: translate3d(0, -50%, 0);
+        position: absolute;
+        top: 75px;
+        right: 0px;
+    } 
+}
+
+@media screen and (max-width: 768px) {
+    .widget--search .submit-search {
+        background-color: transparent !important;
+        background-image: url(../images/icons/icon-search.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border: none;
+        cursor: pointer;
+        width: 2rem;
+        height: 1.5rem;
+        min-height: 2rem;
+        padding: 0;
+        margin: 0;
+        -webkit-transform: translate3d(0, -50%, 0);
+        transform: translate3d(0, -50%, 0);
+        position: absolute;
+        top: 75px;
+        right: 30px;
+    } 
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr  ;
+        gap: 20px 30px;
+        height: 70vh;  
+        width: 70%;
+        margin: 0 auto;
+        position:sticky;
+        top: 5em;
+      }
 }
 
 .s-content__sidebar .widget--search {
