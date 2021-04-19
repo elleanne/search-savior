@@ -168,7 +168,14 @@ function saveProject(onOff, allNodes, treeName) {
     var treeVar = treeName;
     var obj = {};
     obj[treeVar] = allNodes;
+    var d = new Date();
+    var n = d.getDate();
+    n += "-" + (d.getMonth()+1) + "-" + d.getFullYear();
+    let name = "&&date-"+treeVar;
+    let date = {}
+    date[name] = n;
     chrome.storage.sync.set(obj);
+    chrome.storage.sync.set(date);
   }
 }
 

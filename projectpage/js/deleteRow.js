@@ -22,6 +22,8 @@ function deleteRow() {
         // delete from storage
         chrome.storage.sync.get(v1, function (data) {
           chrome.storage.sync.remove(v1);
+          date_variable = "&&date-"+v1;
+          chrome.storage.sync.remove(date_variable);
         });
         // delete from table
         table.deleteRow(i);
