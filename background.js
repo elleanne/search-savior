@@ -87,7 +87,7 @@ chrome.tabs.onActivated.addListener((tab) => {
           nameIsSaved2 = TFBOOL.nameIsSaved;
           console.log(nameIsSaved2); // true
 
-          if (nameIsSaved2) {
+          if (!nameIsSaved2) {
             treeName = "Search " + i;
             i++;
             localStorage.setItem("input_name", treeName);

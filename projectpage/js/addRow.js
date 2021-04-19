@@ -44,8 +44,12 @@ if (bool) {
 
 function addEntry(storageKey) {
   let n;
-  console.log("storagekey=" + storageKey);
-  if (storageKey.startsWith("&&date")) {console.log("c'est une date" + storageKey);return;} // if it's a date object, don't make an entry out of it
+  // console.log("storagekey=" + storageKey);
+  if (storageKey.startsWith("&&date")) 
+  {
+    // console.log("c'est une date" + storageKey);
+    return;
+  } // if it's a date object, don't make an entry out of it
   else{
     //set date of the search
     chrome.storage.sync.get("&&date-"+storageKey,function(result){
@@ -67,7 +71,7 @@ function addEntry(storageKey) {
         var newCheckEle = document.createElement("input");
     
         // create category text
-        console.log("n=" + n);
+        // console.log("n=" + n);
         var date = document.createTextNode(n);
         var categoryText = document.createTextNode("searched tree");
         // var categoryText = document.createTextNode(localStorage.getItem("input_category"));

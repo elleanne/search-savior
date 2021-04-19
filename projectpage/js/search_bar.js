@@ -2,6 +2,8 @@
 
 // fetch the name to be seacrhed : activated only when search button is pressed
 
+// console.log("in search_bar.js");
+
 var bool = document.getElementById("Submit");
 if (bool) {
   bool.addEventListener("click", addSearch);
@@ -13,7 +15,7 @@ function addSearch(){
     // item to be searched
     var input_search_name = document.getElementById("search").value;
 
-    console.log(input_search_name);
+    // console.log(input_search_name);
 
     // retrieving all the searches
     
@@ -21,12 +23,12 @@ function addSearch(){
 
       // list of all the searches
       var allKeys = Object.keys(items);
-      console.log(allKeys);
+      // console.log(allKeys);
 
 
       // length of object
       len = Object.keys(allKeys).length;
-      console.log(len);
+      // console.log(len);
 
 
       // checking if allKeys[i] has input_search_name as a substring
@@ -35,8 +37,12 @@ function addSearch(){
       for (i = 0; i < len; i++) {
         var str = allKeys[i];
         var n = str.includes(input_search_name, 0);
-        
 
+      // excluding dates from searches
+        if(str.includes("&&date-",0)){
+          continue;
+        }
+      
         // if the substring exists return the 'search_name'
         if (n == true){
           console.log("Related Searches : " + str);
