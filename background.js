@@ -40,11 +40,16 @@ document.addEventListener("DOMContentLoaded", function () {
   if (bool) {
     bool.addEventListener("click", save_name);
   }
+  
   function save_name() {
     var search_name = document.getElementById("name").value;
 
+    console.log(typeof(search_name));
+    
     localStorage.setItem("input_name", search_name);
     console.log(localStorage.getItem("input_name"));
+    
+    
     var category = document.getElementById("category").value;
     localStorage.setItem("input_category", category);
     nameIsSaved = true;
@@ -75,11 +80,14 @@ chrome.tabs.onActivated.addListener((tab) => {
       var treeName;
       if (!result.enabled && allNodes.length !== 0) {
         var searching = document.getElementById("name");
-        console.log(nameIsSaved2);
+        console.log(nameIsSaved2); // false
         chrome.storage.local.get("nameIsSaved", (TFBOOL) => {
-          nameIsSaved2 = TFBOOL.nameIsSaved;
 
-          if (!nameIsSaved2) {
+          // don't know why the below line was added, but the error was coming from here
+          nameIsSaved2 = TFBOOL.nameIsSaved;
+          console.log(nameIsSaved2); // true
+
+          if (nameIsSaved2) {
             treeName = "Search " + i;
             i++;
             localStorage.setItem("input_name", treeName);
