@@ -17,6 +17,10 @@
     ================================================== -->
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/main.css" />
+    <!-- Custom CSS - Beautify UI (by Kes) -->
+    <link rel="stylesheet" href="css/ui.css" />
+    <!-- FontAwesome (by Kes)-->
+    <script src="https://use.fontawesome.com/5c2fe441b9.js"></script>
 
     <!-- script
     ================================================== -->
@@ -40,23 +44,32 @@
     <header class="s-header">
       <div class="row">
         <div class="s-header__content column container">
-          <div style="padding: 30px;">
+          <div class="Logo-text" style="padding: 30px;">
             <h1 class="s-header__logotext">
-              <a href="index.html" title="">Search Savior</a>
+              <a href="index.html" title="">Search <br>Savior</a>
             </h1>
             <p class="s-header__tagline">Let your search end!</p>
           </div>
-          <img src="./images/searchSaviorIconpng.png" width="250" height="250" alt="app-icon" />
+          <img class="logo-image" 
+             src="./images/searchSaviorIconpng.png" 
+             alt="app-icon" />
         </div>
       </div>
       <!-- end row -->
 
+      <!-- Sticky Nav + Mobile hamburger -->
       <nav class="s-header__nav-wrap">
         <div class="row">
           <ul class="s-header__nav">
+            <!-- Index: Projects -->
             <li class="current"><a href="index.html">Projects</a></li>
+            
+            <!-- Demo: Guide -->
+            <li><a href="demo.html">Guide</a></li>
+
+            <!-- Dropdown: Developers -->
             <li class="has-children">
-              <a href="#0">Developers</a>
+              <a href="#0">Contact Us</a>
               <ul>
                 <li>
                   <a href="https://www.linkedin.com/in/elizabeth-crouther-66926389/" target="_blank">Elizabeth
@@ -70,8 +83,6 @@
                 </li>
               </ul>
             </li>
-
-            <li><a href="demo.html">Guide</a></li>
           </ul>
           <!-- end #nav -->
         </div>
@@ -96,7 +107,7 @@
                 <table id="dataTable">
                   <tr>
                     <th>Select</th>
-                    <th>Search Name</th>
+                    <th class="search-name">Search Name</th>
                     <th style="width: 100%;">Date</th>
                     <th>Category</th>
                   </tr>
@@ -125,66 +136,56 @@
     <!-- Footer
     ================================================== -->
     <footer class="s-footer">
-      <div class="row s-footer__top">
-        <div class="column">
-          <ul class="s-footer__social">
-            <li>
-              <a href="https://github.com/eliboss/search-savior" target="_blank" title="view source code">
-                <img src="https://img.icons8.com/ios-filled/48/000000/github.png" alt="GitHub" />
-              </a>
-            </li>
-            <li>
-              <a href="https://goofy-goofy.github.io/" target="_blank" title="view organisation">
-                <img src="https://img.icons8.com/ios-filled/48/000000/domain.png" alt="Website" />
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!-- end footer__top -->
-
       <div class="row s-footer__bottom">
-        <div class="large-6 tab-full column s-footer__info">
-          <h3 class="h6">About Search Savior</h3>
-          <p>
-            A Search Savior is a Google Chrome Extension where a user will be
-            able to use it to save the history of the tabs they go on the Chrome
-            browswer during the period of time, the extension is being used. It
-            has an On/Off Toogle to start/stop tracking. Once the user finishes
-            browsing, the Search Savior will print out the Tree Structure on the
-            webpage for the user to view it.
-          </p>
-        </div>
-
-        <div class="large-6 tab-full column">
-          <div class="row">
-            <div class="large-8 tab-full column"></div>
-
-            <div class="large-4 tab-full column">
-              <h3 class="h6">Developers</h3>
-
-              <ul class="s-footer__list s-footer-list--nav group">
-                <li>
-                  <a href="https://www.linkedin.com/in/elizabeth-crouther-66926389/" target="_blank">Elizabeth
-                    Crouther</a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/sakshi-gupta-49ab8b179/" target="_blank">Sakshi Gupta</a>
-                </li>
-                <li>
-                  <a href="https://www.linkedin.com/in/myat-thu-k-089938178/" target="_blank">Myat Thu Ko</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div id="copyright" class="ss-copyright">
-          <span>© Copyright
-            <a href="https://github.com/eliboss/search-savior">Search Savior</a>
-            <script src="js/year.js"></script>
+        <p style="text-align:justify">
+          <strong>Search Savior</strong> is a Google Chrome Extension where a user will be
+          able to use it to save the history of the tabs they go on the Chrome
+          browswer during the period of time, the extension is being used. It
+          has an On/Off Toogle to start/stop tracking. Once the user finishes
+          browsing, the Search Savior will print out the Tree Structure on the
+          webpage for the user to view it.
+        </p>
+        <p>
+          <span id="copyright" class="ss-copyright">
+            © Copyright</strong>
+            <a href="https://github.com/eliboss/search-savior">Search Savior</a><script src="js/year.js"></script>
           </span>
-        </div>
+          <span> | </span>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="developers">
+            Developers: 
+            <a href="https://www.linkedin.com/in/elizabeth-crouther-66926389/"
+              target="_blank">
+              Elizabeth Crouther
+            </a>
+            &nbsp;&nbsp;
+            <a href="https://www.linkedin.com/in/sakshi-gupta-49ab8b179/"
+              target="_blank">
+              Sakshi Gupta
+            </a>
+            &nbsp;&nbsp;
+            <a href="https://www.linkedin.com/in/myat-thu-k-089938178/"
+              target="_blank">
+              Myat Thu Ko
+            </a>
+          </span>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span> | </span>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="social-links">
+            <a href="https://github.com/eliboss/search-savior"
+              target="_blank"
+              title="view source code">
+              <i class="fab fa-github fa-lg"></i>
+            </a>
+            &nbsp;&nbsp;
+            <a href="https://goofy-goofy.github.io/"
+              target="_blank"
+              title="view organisation">
+              <i class="far fa-grin-wink fa-lg"></i>
+            </a>
+          </span>
+        </p>
       </div>
       <!-- end footer__bottom -->
 

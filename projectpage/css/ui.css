@@ -1,0 +1,42 @@
+/* ================================= */
+/* Custom UI Contribution: */
+/* Beautify UI, by Kes Cardoso */
+/* ================================= */
+
+
+/* Logo Image */
+.logo-image {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+}
+
+.s-header__content {
+    padding-top: 8rem;
+    padding-bottom: 0rem;
+}
+
+.s-header__logotext {
+    letter-spacing: 0rem;
+}
+
+.btn, button, input[type="submit"], input[type="reset"], input[type="button"] {
+    letter-spacing: .5rem;
+    height: 5rem;
+    line-height: 4.6rem;
+    padding: 0 3.2rem;
+    margin: 0 .4rem 1.6rem 0;
+    color: #000000;
+    border-radius: 12px;
+    border: 0;
+    background-color: #9fcc7f;
+}
+
+.search-name {
+    width: 50%;
+}
+
+.s-footer {
+    padding-top: 3rem;
+}
