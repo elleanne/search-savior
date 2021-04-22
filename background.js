@@ -37,14 +37,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   // fetch custom name and category from popup form: activated only when save button is pressed
   var bool = document.getElementById("Submit");
+
   if (bool) {
-    bool.addEventListener("click", save_name);
+    bool.addEventListener("click", save_name());
   }
   function save_name() {
     var search_name = document.getElementById("name").value;
 
+    if(search_name === null || search_name === "") {
+      search_name = "Search " + i;
+      i++;
+    }
     localStorage.setItem("input_name", search_name);
-    console.log(localStorage.getItem("input_name"));
+    
     var category = document.getElementById("category").value;
     localStorage.setItem("input_category", category);
     nameIsSaved = true;
@@ -54,19 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // When toggle is enabled and a new tab is 'heard', save tab url to treeArray as a new value or a descendant
 // When toggle is disabled, save the project data structure and the name of the project in chrome.storage
-
-// var bool = document.getElementById("Submit");
-// if (bool) {
-//   bool.addEventListener("click", save_name);
-// }
-// function save_name() {
-//   var search_name = document.getElementById("name").value;
-
-//   localStorage.setItem("input_name", search_name);
-
-//   var category = document.getElementById("category").value;
-//   localStorage.setItem("input_category", category);
-// }
 
 chrome.tabs.onActivated.addListener((tab) => {
   chrome.tabs.get(tab.tabId, (current_tab_info) => {
@@ -178,21 +170,3 @@ function getProject(treeName) {
     return mySet;
   });
 }
-
-// NOT USING BUT MIGHT?
-// var makeNode = (urlName) => {
-//   // not used
-//   var node1 = new TreeNode();
-//   node1.value = urlName;
-//   return node1;
-// };
-
-// var addDesc = (node2, desc) => {
-//   // not used
-//   if (node2.descendants !== undefined) {
-//     var tempDesc = node2.descendants;
-//     tempDesc.push(desc);
-//     node2.descendants = tempDesc;
-//   } else node2.descendants.push(desc);
-//   return node2;
-// };
