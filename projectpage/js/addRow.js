@@ -1,9 +1,9 @@
 // Authors: MLH POD 2.1.3 Goofy Goffy {Elizabeth Crouther, Sakshi Gupta, Myat Thu Ko}
 // listener for if we decide to add a feature
-var bool = document.getElementById("addR");
-if (bool) {
-  bool.addEventListener("click", addRow);
-}
+// var bool = document.getElementById("addR");
+// if (bool) {
+//   bool.addEventListener("click", addRow);
+// }
 
 // Not using currently! If a new project was made on the index page, add it to the table
 // function addRow() {
